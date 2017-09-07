@@ -23,6 +23,9 @@ using namespace std;
 struct Vec {
     int x, y;
     Vec(int x, int y) : x(x), y(y) {};
+    operator cocos2d::Vec2() const {
+        return cocos2d::Vec2(x, y);
+    }
 };
 
 bool operator==(const Vec& lhs, const Vec& rhs) {
@@ -81,7 +84,5 @@ public:
     vector<GridEdge> edges;
     
 };
-
-unordered_map<GridTile*, GridTile*> breadthFirstSearch(const GridGraph& graph, GridTile* start, GridTile* goal);
 
 #endif /* GridTile_hpp */

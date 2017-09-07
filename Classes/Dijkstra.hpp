@@ -13,7 +13,8 @@
 using DistData = map<GridTile *, pair<int, GridTile *>>;
 
 std::vector<GridTile *> pathToTile(DistData mdist, GridTile * dest);
-
+std::vector<GridTile *> suitableTiles(DistData mdist, int maxTravel);
 DistData dijkstra(GridGraph *graph, GridTile *source, GridTile *target);
+DistData dijkstra(GridGraph *graph, GridTile *source);
 
 #endif /* Dijkstra_hpp */

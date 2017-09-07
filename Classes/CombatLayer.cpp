@@ -37,15 +37,23 @@ bool CombatLayer::init()
         return false;
     }
     
+    graph = new GridGraph();
+    selected = NULL;
+    destTile = NULL;
+    drawNode = DrawNode::create();
+    addChild(drawNode, 10);
+    
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);
     listener->onTouchMoved = CC_CALLBACK_2(CombatLayer::onTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(CombatLayer::onTouchEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
+    this->scheduleUpdate();
+    
     auto winWidth = Director::getInstance()->getWinSize().width;
     auto winHeight = Director::getInstance()->getWinSize().height;
-    int tileSize = GameManager::getInstance()->getTileSize();
+    auto tileSize = GameManager::getInstance()->getTileSize();
 
     auto node = DrawNode::create();
     
@@ -62,18 +70,36 @@ bool CombatLayer::init()
         node->drawLine(Vec2(i * tileSize + winWidth / 2, upper), Vec2(i * tileSize + winWidth / 2, lower), Color4F(1.0, 1.0, 1.0, 0.5));
     }
     
-    node->drawCircle(Vec2(winWidth/2, winHeight/2), winWidth/2, 0.0f, 8, true, 1.0f, 1.0f, Color4F::RED);
     this->addChild(node, 0);
     
-    graph = new GridGraph();
-    selected = NULL;
     
     //create pawn
     auto pawn = Pawn::create(graph->getTileAt(Vec(0, 0)));
     pawns.push_back(pawn);
-    this->addChild(pawn, 2);
+    this->addChild(pawn, 20);
     
     return true;
+}
+
+
+
+void CombatLayer::update(float dt) {
+    drawNode->clear();
+    
+    GridTile *citem = NULL;
+    for (auto item : path) {
+        if (citem != NULL) {
+            Vec2 v1 = citem->getCoordinate();
+            Vec2 v2 = item->getCoordinate();
+            drawNode->drawSegment(v1, v2, 4, Color4F::RED);
+        }
+        citem = item;
+    }
+    
+    for (auto move : viableMoves) {
+        Vec2 v = move->getCoordinate();
+        drawNode->drawCircle(v, 40, 0, 8, false, 1.0f, 1.0f, Color4F::BLUE);
+    }
 }
 
 Point CombatLayer::touchToPoint(Touch * touch) {
@@ -85,6 +111,41 @@ bool CombatLayer::isTouchingSprite(Touch* touch, Pawn *pawn) {
     Vec2 pos = pawn->getHero()->getPosition();
     return (pos.getDistance(touchToPoint(touch)) < 100.0f);
 }
+
+bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
+    for (auto pawn : pawns) {
+        if (touch && isTouchingSprite(touch, pawn)) {
+            selected = pawn;
+            distDate = dijkstra(graph, selected->getTile());
+            return true;
+        }
+    }
+    return false;
+}
+
+void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
+    if (selected) {
+        auto gotoTile = CombatLayer::getTileAt(touchToPoint(touch));
+        if (destTile != gotoTile) {
+            destTile = gotoTile;
+            path = pathToTile(distDate, destTile);
+            viableMoves = suitableTiles(distDate, selected->MVE);
+        }
+    }
+}
+
+void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
+    if (selected) {
+        selected->jumpToDest(destTile);
+        selected = NULL;
+        path.clear();
+        viableMoves.clear();
+    }
+}
+
+
+
+///////////////////////////////////////////
 
 GridTile *CombatLayer::getTileAt(Vec2 p) {
     int tileSize = GameManager::getInstance()->getTileSize();
@@ -102,7 +163,7 @@ GridTile *CombatLayer::getTileAt(Vec2 p) {
 
 Vec2 CombatLayer::getClosestTile(Vec2 p) {
     auto tileSize = GameManager::getInstance()->getTileSize();
-
+    
     auto winWidth = Director::getInstance()->getWinSize().width;
     auto winHeight = Director::getInstance()->getWinSize().height;
     auto offsetx = (tileSize + winWidth) / 2;
@@ -117,25 +178,5 @@ Vec2 CombatLayer::getClosestTile(Vec2 p) {
     return Vec2(x, y);
 }
 
-bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
-    for (auto pawn : pawns) {
-        if (touch && isTouchingSprite(touch, pawn)) {
-            selected = pawn;
-            return true;
-        }
-    }
-    return false;
-}
+////////////////////////////////////////
 
-void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
-    if (selected) {
-        selected->setDestTile(CombatLayer::getTileAt(touchToPoint(touch)), graph);
-    }
-}
-
-void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
-    if (selected) {
-        selected->jumpToDest();
-        selected = NULL;
-    }
-}

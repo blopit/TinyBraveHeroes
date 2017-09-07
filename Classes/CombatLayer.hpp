@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "GridGraph.hpp"
 #include "Pawn.hpp"
+#include "Dijkstra.hpp"
 
 USING_NS_CC;
 
@@ -22,16 +23,22 @@ private:
     Pawn* selected;
     std::vector<Pawn *> pawns;
     GridGraph *graph;
+    std::vector<GridTile *> path;
+    std::vector<GridTile *> viableMoves;
+    GridTile *destTile;
+    DrawNode *drawNode;
+    DistData distDate;
     
 public:
+    
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init() override;
+    virtual void update(float dt);
     
     Point touchToPoint(Touch* touch);
-    
     bool isTouchingSprite(Touch* touch, Pawn *pawn);
     
     bool onTouchBegan(Touch* touch, Event* event) override;

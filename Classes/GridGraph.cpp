@@ -84,31 +84,3 @@ GridTile* GridGraph::getTileAt(Vec at) {
     return cocos2d::Vec2(x, y);
 }
 
-
-unordered_map<GridTile*, GridTile*> breadthFirstSearch(const GridGraph& graph, GridTile* start, GridTile* goal) {
-
-    queue<GridTile*> frontier;
-    frontier.push(start);
-    
-    unordered_map<GridTile*, GridTile*> came_from;
-    came_from[start] = start;
-    
-    while (!frontier.empty()) {
-        auto current = frontier.front();
-        frontier.pop();
-        
-        if (current == goal) {
-            break;
-        }
-        
-        for (auto& nextEdge : current->edges) {
-            GridTile* nextTile = nextEdge.to;
-            if (!came_from.count(nextTile)) {
-                frontier.push(nextTile);
-                came_from[nextTile] = current;
-            }
-        }
-    }
-    return came_from;
-}
-
