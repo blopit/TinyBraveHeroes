@@ -15,7 +15,7 @@
 class Pawn : public cocos2d::Node {
     virtual bool init();
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
-    Pawn(GridTile *tile): tile(tile){}
+    Pawn(GridTile *tile): tile(tile){ destTile = NULL; }
     
     std::vector<GridTile *> path;
     

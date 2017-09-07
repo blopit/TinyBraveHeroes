@@ -72,7 +72,8 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
 
 void Pawn::setDestTile(GridTile* newTile, GridGraph* graph) {
     destTile = newTile;
-    path = dijkstra(graph, tile, destTile);
+    auto distdata = dijkstra(graph, tile, destTile);
+    path = pathToTile(distdata, destTile);
 }
 
 GridTile* Pawn::getDestTile() {

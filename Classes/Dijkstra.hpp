@@ -10,9 +10,10 @@
 #define Dijkstra_hpp
 
 #include "GridGraph.hpp"
+using DistData = map<GridTile *, pair<int, GridTile *>>;
 
-typedef int weight_t;
+std::vector<GridTile *> pathToTile(DistData mdist, GridTile * dest);
 
-std::vector<GridTile *> dijkstra(GridGraph *graph, GridTile *source, GridTile *target);
+DistData dijkstra(GridGraph *graph, GridTile *source, GridTile *target);
 
 #endif /* Dijkstra_hpp */

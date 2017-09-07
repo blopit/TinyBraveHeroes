@@ -19,10 +19,8 @@ class CombatLayer : public cocos2d::Layer
 {
 private:
     
-    Pawn* pawn;
-    
-    Point touchOffset;
-    bool dragging;
+    Pawn* selected;
+    std::vector<Pawn *> pawns;
     GridGraph *graph;
     
 public:
@@ -34,11 +32,11 @@ public:
     
     Point touchToPoint(Touch* touch);
     
-    bool isTouchingSprite(Touch* touch);
+    bool isTouchingSprite(Touch* touch, Pawn *pawn);
     
-    void onTouchesBegan(const std::vector<Touch*>& touches, Event* event) override;
-    void onTouchesMoved(const std::vector<Touch*>& touches, Event* event) override;
-    void onTouchesEnded(const std::vector<Touch*>& touches, Event* event) override;
+    bool onTouchBegan(Touch* touch, Event* event) override;
+    void onTouchMoved(Touch* touch, Event* event) override;
+    void onTouchEnded(Touch* touch, Event* event) override;
     
     Vec2 getClosestTile(Vec2 p);
     GridTile *getTileAt(Vec2 p);
