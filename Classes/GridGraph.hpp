@@ -13,19 +13,35 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Pawn.hpp"
+#include "cocos2d.h"
 
 #define ROWS 8
 #define COLUMNS 6
 
 using namespace std;
 
-struct Point {
+struct Vec {
     int x, y;
-    Point(int x, int y) : x(x), y(y) {};
+    Vec(int x, int y) : x(x), y(y) {};
 };
 
+bool operator==(const Vec& lhs, const Vec& rhs) {
+    return lhs.x == rhs.x and lhs.y == rhs.y;
+}
+
 class GridTile;
+
+class GridGraph {
+public:
+    GridGraph();
+    GridTile ***graph;
+    void addTile(Vec location, int weight);
+    void addEdge(const Vec from, const Vec to, int work);
+    GridTile* getTileAt(Vec at);
+    static cocos2d::Vec2 getCoordinate(Vec location);
+};
+
+//int GridGraph::gridTileSize = 0;
 
 struct GridEdge {
     GridTile *to;
@@ -38,13 +54,14 @@ struct GridEdge {
 
 class GridTile {
 public:
-    Point id;
-    Pawn *pawn;
+    Vec location;
     int work;
     bool infinite;
+    bool occupied = false;
     
-    GridTile(Point id, int work):id(id), work(work), infinite(false){}
-    GridTile(Point id):id(id), work(0), infinite(true){}
+    GridTile(Vec location, int work) : location(location), work(work), infinite(false){}
+    GridTile(Vec location) : location(location), work(0), infinite(true){}
+    cocos2d::Vec2 getCoordinate();
     
     // N, NE, E, SE, S, SW, W, NW
     /*
@@ -65,14 +82,6 @@ public:
     
 };
 
-class GridGraph {
-public:
-    GridGraph();
-    GridTile ***graph;
-    void addTile(Point id, int weight);
-    void addEdge(const Point from, const Point to, int work);
-};
-
-
+unordered_map<GridTile*, GridTile*> breadthFirstSearch(const GridGraph& graph, GridTile* start, GridTile* goal);
 
 #endif /* GridTile_hpp */

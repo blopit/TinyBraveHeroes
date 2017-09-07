@@ -9,6 +9,7 @@
 #include "CombatLayer.hpp"
 #include <iostream>
 #include "Pawn.hpp"
+#include "GameManager.hpp"
 
 Scene* CombatLayer::createScene()
 {
@@ -36,13 +37,13 @@ bool CombatLayer::init()
         return false;
     }
     
-    currentSprite = Sprite::create("res/whitepawn.png");
+    /*currentSprite = Sprite::create("res/whitepawn.png");
     currentSprite->setPosition(Vec2(Director::getInstance()->getWinSize().width / 2, Director::getInstance()->getWinSize().height / 2));
     addChild(currentSprite, 2);
     
     landingSprite = Sprite::create("res/marker0.png");
     landingSprite->setPosition(Vec2(0,0));
-    addChild(landingSprite, 0);
+    addChild(landingSprite, 0);*/
     
     dragging = false;
     
@@ -54,11 +55,9 @@ bool CombatLayer::init()
     
     auto winWidth = Director::getInstance()->getWinSize().width;
     auto winHeight = Director::getInstance()->getWinSize().height;
-    tileSize = Director::getInstance()->getWinSize().width / 6;
+    int tileSize = GameManager::getInstance()->getTileSize();
 
     auto node = DrawNode::create();
-    
-    std::cout << "BEGAN" << std::endl;
     
     int upper = winHeight / 2 + tileSize * 4;
     int lower = winHeight / 2 - tileSize * 4;
@@ -76,6 +75,11 @@ bool CombatLayer::init()
     node->drawCircle(Vec2(winWidth/2, winHeight/2), winWidth/2, 0.0f, 8, true, 1.0f, 1.0f, Color4F::RED);
     this->addChild(node, 0);
     
+    graph = new GridGraph();
+    pawn = Pawn::create(graph->getTileAt(Vec(0, 0)));
+    
+    this->addChild(pawn, 2);
+    
     return true;
 }
 
@@ -84,29 +88,37 @@ Point CombatLayer::touchToPoint(Touch * touch) {
 }
 
 bool CombatLayer::isTouchingSprite(Touch* touch) {
-    return (currentSprite->getPosition().getDistance(touchToPoint(touch)) < 100.0f);
+    Vec2 pos = pawn->getHero()->getPosition();
+    return (pos.getDistance(touchToPoint(touch)) < 100.0f);
 }
 
-Vec2 CombatLayer::getClosestTile(Vec2 p) {
+GridTile *CombatLayer::getTileAt(Vec2 p) {
+    int tileSize = GameManager::getInstance()->getTileSize();
+    
     auto winWidth = Director::getInstance()->getWinSize().width;
     auto winHeight = Director::getInstance()->getWinSize().height;
     auto offsetx = (tileSize + winWidth) / 2;
     auto offsety = (tileSize + winHeight) / 2;
     
-    int x = round((p.x - offsetx) / ((float) tileSize)) * tileSize + offsetx;
-    int y = round((p.y - offsety) / ((float) tileSize)) * tileSize + offsety;
+    int x = round((p.x - offsetx) / ((float) tileSize)) + 3;
+    int y = round((p.y - offsety) / ((float) tileSize)) + 4;
     
-    if (x > offsetx + tileSize * 2) {
-        x = offsetx + tileSize * 2;
-    } else if (x < offsetx - tileSize * 3) {
-        x = offsetx - tileSize * 3;
-    }
+    return graph->getTileAt(Vec(x, y));
+}
+
+Vec2 CombatLayer::getClosestTile(Vec2 p) {
+    auto tileSize = GameManager::getInstance()->getTileSize();
+
+    auto winWidth = Director::getInstance()->getWinSize().width;
+    auto winHeight = Director::getInstance()->getWinSize().height;
+    auto offsetx = (tileSize + winWidth) / 2;
+    auto offsety = (tileSize + winHeight) / 2;
     
-    if (y > offsety + tileSize * 3) {
-        y = offsety + tileSize * 3;
-    } else if (y < offsety - tileSize * 4) {
-        y = offsety - tileSize * 4;
-    }
+    auto x = round((p.x - offsetx) / ((float) tileSize)) * tileSize + offsetx;
+    auto y = round((p.y - offsety) / ((float) tileSize)) * tileSize + offsety;
+    
+    boundToRange(offsetx - tileSize * 3, x, offsetx + tileSize * 2);
+    boundToRange(offsety - tileSize * 4, y, offsety + tileSize * 3);
     
     return Vec2(x, y);
 }
@@ -115,7 +127,6 @@ void CombatLayer::onTouchesBegan(const std::vector<Touch*>& touches, Event* even
     touchOffset = Point::ZERO;
     for (auto touch : touches) {
         if (touch && isTouchingSprite(touch)) {
-            currentSprite->setPosition(touchToPoint(touch) + touchOffset);
             dragging = true;
         }
     }
@@ -125,13 +136,12 @@ void CombatLayer::onTouchesMoved(const std::vector<Touch*>& touches, Event* even
     //std::cout << "MOVED" << std::endl;
     for (auto touch : touches) {
         if (dragging) {
-            currentSprite->setPosition(touchToPoint(touch) + touchOffset);
-            auto landing = CombatLayer::getClosestTile(touchToPoint(touch));
-            landingSprite->setPosition(landing);
+            pawn->setDestTile(CombatLayer::getTileAt(touchToPoint(touch) + touchOffset), graph);
         }
     }
 }
 
 void CombatLayer::onTouchesEnded(const std::vector<Touch*>& touches, Event* event) {
     dragging = false;
+    pawn->jumpToDest();
 }

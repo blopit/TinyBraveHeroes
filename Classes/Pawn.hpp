@@ -10,12 +10,34 @@
 #define Pawn_hpp
 
 #include <stdio.h>
+#include "GridGraph.hpp"
+#include "cocos2d.h"
 
-class Pawn : public cocos2d::Layer {
-    static cocos2d::Layer* createLayer();
+class Pawn : public cocos2d::Node {
     virtual bool init();
+    virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
+    Pawn(GridTile *tile): tile(tile){}
     
-    cocos2d::EventListenerTouchOneByOne listener;
+    unordered_map<GridTile*, GridTile*> path;
+    
+    GridTile *destTile;
+    GridTile *tile;
+    
+    cocos2d::CustomCommand _drawLines;
+    void onDrawPrimitives(const cocos2d::Mat4 &transform, uint32_t flags);
+    
+public:
+    static Pawn* create(GridTile *tile);
+    
+    void setTile(GridTile* newTile, GridGraph* graph);
+    GridTile* getTile();
+    void setDestTile(GridTile* newTile, GridGraph* graph);
+    GridTile* getDestTile();
+    void jumpToDest();
+    
+    CC_SYNTHESIZE(cocos2d::Sprite*, hero, Hero);
+    CC_SYNTHESIZE(cocos2d::Sprite*, marker, Marker);
+    
 };
 
 
