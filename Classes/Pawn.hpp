@@ -9,7 +9,6 @@
 #ifndef Pawn_hpp
 #define Pawn_hpp
 
-#include <stdio.h>
 #include "GridGraph.hpp"
 #include "cocos2d.h"
 
@@ -18,7 +17,7 @@ class Pawn : public cocos2d::Node {
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
     Pawn(GridTile *tile): tile(tile){}
     
-    unordered_map<GridTile*, GridTile*> path;
+    std::vector<GridTile *> path;
     
     GridTile *destTile;
     GridTile *tile;

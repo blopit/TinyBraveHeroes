@@ -21,8 +21,8 @@
 		3919AE1E1F6087CC008E7041 /* GridGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE1B1F6087CC008E7041 /* GridGraph.cpp */; };
 		3919AE211F60D741008E7041 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE1F1F60D741008E7041 /* GameManager.cpp */; };
 		3919AE221F60D741008E7041 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE1F1F60D741008E7041 /* GameManager.cpp */; };
-		3919AE251F60EFBB008E7041 /* Pathfinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE231F60EFBB008E7041 /* Pathfinding.cpp */; };
-		3919AE261F60EFBB008E7041 /* Pathfinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE231F60EFBB008E7041 /* Pathfinding.cpp */; };
+		3919AE291F611335008E7041 /* Dijkstra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE271F611335008E7041 /* Dijkstra.cpp */; };
+		3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE271F611335008E7041 /* Dijkstra.cpp */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
@@ -138,8 +138,8 @@
 		3919AE1C1F6087CC008E7041 /* GridGraph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GridGraph.hpp; sourceTree = "<group>"; };
 		3919AE1F1F60D741008E7041 /* GameManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameManager.cpp; sourceTree = "<group>"; };
 		3919AE201F60D741008E7041 /* GameManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
-		3919AE231F60EFBB008E7041 /* Pathfinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pathfinding.cpp; sourceTree = "<group>"; };
-		3919AE241F60EFBB008E7041 /* Pathfinding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Pathfinding.hpp; sourceTree = "<group>"; };
+		3919AE271F611335008E7041 /* Dijkstra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dijkstra.cpp; sourceTree = "<group>"; };
+		3919AE281F611335008E7041 /* Dijkstra.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dijkstra.hpp; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
@@ -345,8 +345,8 @@
 				3919AE1C1F6087CC008E7041 /* GridGraph.hpp */,
 				3919AE1F1F60D741008E7041 /* GameManager.cpp */,
 				3919AE201F60D741008E7041 /* GameManager.hpp */,
-				3919AE231F60EFBB008E7041 /* Pathfinding.cpp */,
-				3919AE241F60EFBB008E7041 /* Pathfinding.hpp */,
+				3919AE271F611335008E7041 /* Dijkstra.cpp */,
+				3919AE281F611335008E7041 /* Dijkstra.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -558,7 +558,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				3919AE211F60D741008E7041 /* GameManager.cpp in Sources */,
 				3919AE0E1F5E6944008E7041 /* Pawn.cpp in Sources */,
-				3919AE251F60EFBB008E7041 /* Pathfinding.cpp in Sources */,
+				3919AE291F611335008E7041 /* Dijkstra.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				3919AE151F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
@@ -573,8 +573,8 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				3919AE1E1F6087CC008E7041 /* GridGraph.cpp in Sources */,
 				3919AE161F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
-				3919AE261F60EFBB008E7041 /* Pathfinding.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				3919AE0F1F5E6944008E7041 /* Pawn.cpp in Sources */,
 			);

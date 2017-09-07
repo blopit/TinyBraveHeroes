@@ -6,7 +6,9 @@
 //
 //
 
+#include <iostream>
 #include "Pawn.hpp"
+#include "Dijkstra.hpp"
 
 USING_NS_CC;
 
@@ -41,10 +43,14 @@ void Pawn::onDrawPrimitives(const cocos2d::Mat4 &transform, uint32_t flags)
     director->pushMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
     director->loadMatrix(cocos2d::MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW, transform);
     
-    for (auto it : path) {
-        Vec2 v1 = it.first->getCoordinate();
-        Vec2 v2 = it.second->getCoordinate();
-        cocos2d::DrawPrimitives::drawLine(v1, v2);
+    GridTile *citem = NULL;
+    for (auto item : path) {
+        if (citem != NULL) {
+            Vec2 v1 = citem->getCoordinate();
+            Vec2 v2 = item->getCoordinate();
+            cocos2d::DrawPrimitives::drawLine(v1, v2);
+        }
+        citem = item;
     }
 }
 
@@ -66,7 +72,7 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
 
 void Pawn::setDestTile(GridTile* newTile, GridGraph* graph) {
     destTile = newTile;
-    path = breadthFirstSearch(*graph, tile, destTile);
+    path = dijkstra(graph, tile, destTile);
 }
 
 GridTile* Pawn::getDestTile() {
