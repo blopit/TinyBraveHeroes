@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Pawn.hpp"
 #include "GameManager.hpp"
+#include "CombatLogic.hpp"
 
 Scene* CombatLayer::createScene()
 {
@@ -38,7 +39,7 @@ bool CombatLayer::init()
     }
     
     graph = new GridGraph();
-    selected = NULL;
+    current = NULL;
     destTile = NULL;
     drawNode = DrawNode::create();
     addChild(drawNode, 10);
@@ -74,14 +75,16 @@ bool CombatLayer::init()
     
     
     //create pawn
-    auto pawn = Pawn::create(graph->getTileAt(Vec(0, 0)));
+    auto pawn = Pawn::create(graph->getTileAt(Vec(0, 0)), CharInfo(100, 48, 25));
+    pawns.push_back(pawn);
+    this->addChild(pawn, 20);
+    
+    pawn = Pawn::create(graph->getTileAt(Vec(4, 4)), CharInfo(100, 64, 20));
     pawns.push_back(pawn);
     this->addChild(pawn, 20);
     
     return true;
 }
-
-
 
 void CombatLayer::update(float dt) {
     drawNode->clear();
@@ -112,11 +115,23 @@ bool CombatLayer::isTouchingSprite(Touch* touch, Pawn *pawn) {
     return (pos.getDistance(touchToPoint(touch)) < 100.0f);
 }
 
+void CombatLayer::generatePaths(GridTile * dest) {
+    path = pathToTile(distData, dest);
+    viableMoves = reachableTiles(distData, current->info.MVE);
+    
+    // Cull occupied squares
+    viableMoves.erase(std::remove_if(viableMoves.begin(), viableMoves.end(), [](const GridTile *x) {
+        return x->occupied;
+    }), viableMoves.end());
+}
+
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
-    for (auto pawn : pawns) {
-        if (touch && isTouchingSprite(touch, pawn)) {
-            selected = pawn;
-            distDate = dijkstra(graph, selected->getTile());
+    if (current) {
+        if (touch && isTouchingSprite(touch, current)) {
+            dragging = true;
+            auto tile = current->getTile();
+            distData = dijkstra(graph, tile);
+            generatePaths(tile);
             return true;
         }
     }
@@ -124,20 +139,20 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
 }
 
 void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
-    if (selected) {
+    if (current and dragging) {
         auto gotoTile = CombatLayer::getTileAt(touchToPoint(touch));
         if (destTile != gotoTile) {
             destTile = gotoTile;
-            path = pathToTile(distDate, destTile);
-            viableMoves = suitableTiles(distDate, selected->MVE);
+            generatePaths(destTile);
         }
     }
 }
 
 void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
-    if (selected) {
-        selected->jumpToDest(destTile);
-        selected = NULL;
+    if (current and dragging) {
+        current->jumpToDest(destTile);
+        current = NULL;
+        dragging = false;
         path.clear();
         viableMoves.clear();
     }
@@ -172,8 +187,8 @@ Vec2 CombatLayer::getClosestTile(Vec2 p) {
     auto x = round((p.x - offsetx) / ((float) tileSize)) * tileSize + offsetx;
     auto y = round((p.y - offsety) / ((float) tileSize)) * tileSize + offsety;
     
-    boundToRange(offsetx - tileSize * 3, x, offsetx + tileSize * 2);
-    boundToRange(offsety - tileSize * 4, y, offsety + tileSize * 3);
+    x = boundToRange(offsetx - tileSize * 3, x, offsetx + tileSize * 2);
+    y = boundToRange(offsety - tileSize * 4, y, offsety + tileSize * 3);
     
     return Vec2(x, y);
 }

@@ -20,14 +20,16 @@ class CombatLayer : public cocos2d::Layer
 {
 private:
     
-    Pawn* selected;
+    Pawn* current;
+    bool dragging = false;
+    
     std::vector<Pawn *> pawns;
     GridGraph *graph;
     std::vector<GridTile *> path;
     std::vector<GridTile *> viableMoves;
     GridTile *destTile;
     DrawNode *drawNode;
-    DistData distDate;
+    DistData distData;
     
 public:
     
@@ -47,6 +49,7 @@ public:
     
     Vec2 getClosestTile(Vec2 p);
     GridTile *getTileAt(Vec2 p);
+    void generatePaths(GridTile * dest);
     
     // implement the "static create()" method manually
     CREATE_FUNC(CombatLayer);

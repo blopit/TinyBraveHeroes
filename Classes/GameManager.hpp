@@ -24,8 +24,8 @@ public:
 };
 
 template <class T>
-void boundToRange(T lower, T &value, T upper) {
-    value = value < lower ? lower : value > upper ? upper : value;
+T boundToRange(T lower, T value, T upper) {
+    return value < lower ? lower : value > upper ? upper : value;
 }
 
 #endif /* GameManager_hpp */

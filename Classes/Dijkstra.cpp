@@ -19,7 +19,7 @@ std::vector<GridTile *> pathToTile(DistData mdist, GridTile *dest) {
     return path;
 }
 
-std::vector<GridTile *> suitableTiles(DistData mdist, int maxTravel) {
+std::vector<GridTile *> reachableTiles(DistData mdist, int maxTravel) {
     std::vector<GridTile *> tiles;
     for( const auto& p : mdist ){
         if (p.second.first <= maxTravel) {

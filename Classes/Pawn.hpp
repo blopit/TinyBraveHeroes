@@ -11,19 +11,30 @@
 
 #include "GridGraph.hpp"
 #include "cocos2d.h"
+#include "CombatLogic.hpp"
+
+struct CharInfo {
+    int HP, SPD, MVE;
+    CharInfo(int HP, int SPD, int MVE) : HP(HP), SPD(SPD), MVE(MVE) {}
+};
 
 class Pawn : public cocos2d::Node {
-    virtual bool init();
+    virtual bool init() override;
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
-    Pawn(GridTile *tile): tile(tile){}
-    
+    Pawn(GridTile *tile, CharInfo info);
     GridTile *tile;
+    cocos2d::DrawNode *drawNode;
+    
+    cocos2d::Label *waitLabel;
     
 public:
-    static Pawn* create(GridTile *tile);
+    static Pawn* create(GridTile *tile, CharInfo info);
+    CharInfo info;
     bool dragged = false;
     
-    int MVE = 25;
+    double waitTime;
+    double waitSpeed();
+    int remainingWait();
     
     void setTile(GridTile* newTile, GridGraph* graph);
     GridTile* getTile();

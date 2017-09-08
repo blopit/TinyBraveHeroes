@@ -65,8 +65,8 @@ GridTile* GridGraph::getTileAt(Vec at) {
     auto x = at.x;
     auto y = at.y;
     
-    boundToRange(0, x, COLUMNS-1);
-    boundToRange(0, y, ROWS-1);
+    x = boundToRange(0, x, COLUMNS-1);
+    y = boundToRange(0, y, ROWS-1);
     
     return graph[x][y];
 }
