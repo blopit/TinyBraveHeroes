@@ -17,9 +17,10 @@ bool Pawn::init() {
     hero = Sprite::create("res/whitepawn.png");
     addChild(hero);
     
-    waitLabel = Label::createWithSystemFont("wait", "arial", 20);
+    waitLabel = Label::createWithTTF("wait", "fonts/dpcomic.ttf", 24);
     waitLabel->setAnchorPoint(Vec2(0, 1));
     waitLabel->setTextColor(Color4B::WHITE);
+    waitLabel->enableOutline(Color4B::BLACK, 3);
     addChild(waitLabel);
     
     healthbar = Healthbar::create();
@@ -64,7 +65,7 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
     int tileSize = GameManager::getInstance()->getTileSize();
     
     waitLabel->setString(std::to_string(remainingWait()));
-    waitLabel->setPosition(hero->getPosition() + Vec2(-tileSize/2, tileSize/2));
+    waitLabel->setPosition(hero->getPosition() + Vec2(-tileSize/2 + 6, tileSize/2));
     waitLabel->draw(renderer, transform, transformFlags);
     
     healthbar->setPosition(hero->getPosition() + Vec2(-tileSize/2, -tileSize/2));

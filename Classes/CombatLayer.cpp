@@ -31,6 +31,11 @@ Scene* CombatLayer::createScene()
 // on "init" you need to initialize your instance
 bool CombatLayer::init()
 {
+    
+    auto bk = Sprite::create("res/IMG_1341.jpg");
+    bk->setAnchorPoint(Vec(0,0));
+    addChild(bk);
+    
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -47,6 +52,7 @@ bool CombatLayer::init()
     addChild(drawNode, 10);
     addChild(drawNodeAdd, 11);
     addChild(drawNodeBorder, 12);
+    
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);
@@ -128,21 +134,20 @@ void CombatLayer::update(float dt) {
             auto v = move->getCoordinate();
             auto vTR = v + Vec2(tileSize/2, tileSize/2);
             auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
-            //drawNodeAdd->drawSolidRect(vBL, vTR, Color4F(1, 0, 0, 0.75));
-            coloured[l.x][l.y] = Color4F(1, 0, 0, 0.75);
+            coloured[l.x][l.y] = Color4F(0.8, 0, 0, 0.8);
         }
         
         for (auto move : viableMoves) {
             auto v = move->getCoordinate();
-            auto vTL = v + Vec2(-tileSize/2, tileSize/2);
-            auto vTR = v + Vec2(tileSize/2, tileSize/2);
-            auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
-            auto vBR = v + Vec2(tileSize/2, -tileSize/2);
             auto l = move->location;
             auto x = l.x;
             auto y = l.y;
             auto width = 4;
             auto col = Color4F(0, 1, 1, 1);
+            auto vTL = v + Vec2(-tileSize/2, tileSize/2);
+            auto vTR = v + Vec2(tileSize/2, tileSize/2);
+            auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
+            auto vBR = v + Vec2(tileSize/2, -tileSize/2);
             
             if (x == 0 or !viableMovesTable[x-1][y]) {
                 drawNodeBorder->drawSegment(vTL, vBL, width, col);
@@ -161,7 +166,7 @@ void CombatLayer::update(float dt) {
             }
             
             if (coloured[l.x][l.y] == n) {
-                coloured[l.x][l.y] = Color4F(0, 1, 1, 0.75);
+                coloured[l.x][l.y] = Color4F(0, 0.4, 0.8, 0.8);
             }
         }
         

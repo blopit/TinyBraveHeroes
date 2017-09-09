@@ -17,9 +17,11 @@ bool Healthbar::init() {
     drawNode->setAnchorPoint(Vec2(0, 0));
     addChild(drawNode);
     
-    hpLabel = Label::createWithSystemFont("100", "arial", 20);
+    hpLabel =  Label::createWithTTF("100", "fonts/dpcomic.ttf", 24);
     hpLabel->setAnchorPoint(Vec2(0, 0));
     hpLabel->setTextColor(Color4B::WHITE);
+    hpLabel->enableOutline(Color4B::BLACK, 3);
+    hpLabel->setPosition(Vec2(6, 0));
     addChild(hpLabel);
     
     return true;
@@ -48,11 +50,17 @@ void Healthbar::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform
     
     drawNode->clear();
     
-    double width = hpLabel->getBoundingBox().size.width;
-    double tileSize = GameManager::getInstance()->getTileSize() - 8 - width;
-    double displaySize = width + 4 + tileSize * HP / maxHP;
+    auto width = hpLabel->getBoundingBox().size.width;
+    auto tileSize = GameManager::getInstance()->getTileSize();
+    auto displaySize = (tileSize - 16 - width) * HP / maxHP;
+    auto start = 10 + width;
+    auto v1 = Vec2(start, 8);
+    auto v2 = Vec2(start + displaySize, 16);
     
-    //hpLabel->setPosition(Vec2(5, 0));
-    drawNode->drawSolidRect(Vec2(4 + width, 4), Vec2(displaySize, 12), Color4F::GREEN);
+    drawNode->drawSegment(v1, Vec2(v1.x,v2.y), 3, Color4F::BLACK);
+    drawNode->drawSegment(v2, Vec2(v1.x,v2.y), 3, Color4F::BLACK);
+    drawNode->drawSegment(v1, Vec2(v2.x,v1.y), 3, Color4F::BLACK);
+    drawNode->drawSegment(v2, Vec2(v2.x,v1.y), 3, Color4F::BLACK);
+    drawNode->drawSolidRect(v1, v2, Color4F::GREEN);
     
 }
