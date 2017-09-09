@@ -36,6 +36,10 @@ bool CombatLayer::init()
     bk->setAnchorPoint(Vec(0,0));
     addChild(bk);
     
+    turnPointer = Sprite::create("res/turnpointer.png");
+    turnPointer->setVisible(false);
+    addChild(turnPointer, 21);
+    
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -100,7 +104,13 @@ bool compareMinWait(const Pawn *lhs, const Pawn *rhs){
     return lhs->waitTime < rhs->waitTime;
 }
 
+void CombatLayer::setTurnPointerPosition() {
+    turnPointer->setPosition(current->getTile()->getCoordinate() + Vec2(0, 70 + 10 * sin(MATH_DEG_TO_RAD(timedRotate * 5))));
+}
+
 void CombatLayer::update(float dt) {
+    timedRotate = (timedRotate+1) % 360;
+    
     int tileSize = GameManager::getInstance()->getTileSize();
     drawNode->clear();
     drawNodeAdd->clear();
@@ -108,6 +118,10 @@ void CombatLayer::update(float dt) {
     drawNodeBorder->clear();
     
     if (current) {
+        if (!dragging) {
+            CombatLayer::setTurnPointerPosition();
+        }
+        
         //TODO: fix this
         GridTile *citem = NULL;
         for (auto item : path) {
@@ -143,7 +157,7 @@ void CombatLayer::update(float dt) {
             auto x = l.x;
             auto y = l.y;
             auto width = 4;
-            auto col = Color4F(0, 1, 1, 1);
+            auto col = Color4F(0, 0.6, 0.8, 1);
             auto vTL = v + Vec2(-tileSize/2, tileSize/2);
             auto vTR = v + Vec2(tileSize/2, tileSize/2);
             auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
@@ -166,7 +180,7 @@ void CombatLayer::update(float dt) {
             }
             
             if (coloured[l.x][l.y] == n) {
-                coloured[l.x][l.y] = Color4F(0, 0.4, 0.8, 0.8);
+                coloured[l.x][l.y] = Color4F(0, 0.6, 0.8, 0.8);
             }
         }
         
@@ -190,6 +204,9 @@ void CombatLayer::update(float dt) {
         if (ready.size() > 0) {
             auto it = std::min_element(ready.begin(), ready.end(),compareMinWait);
             current = *it;
+            current->selected = true;
+            turnPointer->setVisible(true);
+            CombatLayer::setTurnPointerPosition();
         }
     }
     
@@ -251,6 +268,7 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
             distData = dijkstra(graph, tile);
             generatePaths(tile);
             generateViable();
+            turnPointer->setVisible(false);
             return true;
         }
     }
@@ -270,6 +288,7 @@ void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
 void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
     if (current and dragging) {
         current->jumpToDest(destTile);
+        current->activate(destTile, graph, pawns);
         current = NULL;
         destTile = NULL;
         dragging = false;

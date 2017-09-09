@@ -12,6 +12,8 @@
 #include "Telegraph.hpp"
 #include "GridGraph.hpp"
 
+class Pawn;
+
 class Ability {
     void setTelegraph(const telegraph t);
     
@@ -19,9 +21,12 @@ public:
     double damage = 50;
     double waitTime = 20;
     telegraph tele;
-    //void activate(GridGraph * graph, std::vector<Pawn *> pawns);
+    Pawn *owner;
     
-    Ability() {
+    void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
+    void trigger(Pawn *pawn);
+    
+    Ability(Pawn *owner) : owner(owner) {
         setTelegraph(cross_30);
     }
 };

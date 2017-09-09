@@ -13,13 +13,13 @@
 
 class Healthbar : public cocos2d::Node {
     virtual bool init() override;
-    Healthbar();
+    Healthbar(int hp);
     cocos2d::DrawNode *drawNode;
     cocos2d::Label *hpLabel;
     
 public:
     double maxHP, HP, simHP, dispHP;
-    static Healthbar* create();
+    static Healthbar* create(int hp);
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
 };
 

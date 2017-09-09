@@ -22,6 +22,7 @@ private:
     
     Pawn* current;
     bool dragging = false;
+    int timedRotate = 0;
     
     std::vector<Pawn *> pawns;
     GridGraph *graph;
@@ -43,8 +44,11 @@ private:
     DrawNode *drawNodeBorder;
     DistData distData;
     
+    Sprite *turnPointer;
+    
     void generatePaths(GridTile * dest);
     void generateViable();
+    void setTurnPointerPosition();
     
 public:
     
@@ -53,7 +57,7 @@ public:
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init() override;
-    virtual void update(float dt);
+    virtual void update(float dt) override;
     
     Point touchToPoint(Touch* touch);
     bool isTouchingSprite(Touch* touch, Pawn *pawn);

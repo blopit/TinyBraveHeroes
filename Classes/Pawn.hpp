@@ -29,10 +29,12 @@ class Pawn : public cocos2d::Node {
     Healthbar *healthbar;
     cocos2d::Label *waitLabel;
     
+    double maxHP, HP;
+    
 public:
     static Pawn* create(GridTile *tile, CharInfo info);
     CharInfo info;
-    bool dragged = false;
+    bool selected = false;
     
     double waitTime;
     double waitSpeed();
@@ -43,8 +45,12 @@ public:
     
     void setTile(GridTile* newTile, GridGraph* graph);
     GridTile* getTile();
+    
+    void setHP(double HP);
+    double getHP();
+    
     void jumpToDest(GridTile* destTile);
-    void activate();
+    void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
     
     CC_SYNTHESIZE(cocos2d::Sprite*, hero, Hero);
     
