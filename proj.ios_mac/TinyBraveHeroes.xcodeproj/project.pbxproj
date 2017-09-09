@@ -25,6 +25,12 @@
 		3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE271F611335008E7041 /* Dijkstra.cpp */; };
 		399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
 		399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
+		3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740A1F63390800AAEDA0 /* Telegraph.cpp */; };
+		3999740D1F63390800AAEDA0 /* Telegraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740A1F63390800AAEDA0 /* Telegraph.cpp */; };
+		399974101F633FB700AAEDA0 /* Ability.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740E1F633FB700AAEDA0 /* Ability.cpp */; };
+		399974111F633FB700AAEDA0 /* Ability.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740E1F633FB700AAEDA0 /* Ability.cpp */; };
+		399974141F6379FC00AAEDA0 /* Healthbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974121F6379FC00AAEDA0 /* Healthbar.cpp */; };
+		399974151F6379FC00AAEDA0 /* Healthbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974121F6379FC00AAEDA0 /* Healthbar.cpp */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
@@ -142,6 +148,12 @@
 		3919AE281F611335008E7041 /* Dijkstra.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dijkstra.hpp; sourceTree = "<group>"; };
 		399974061F6204E200AAEDA0 /* CombatLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CombatLogic.cpp; sourceTree = "<group>"; };
 		399974071F6204E200AAEDA0 /* CombatLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CombatLogic.hpp; sourceTree = "<group>"; };
+		3999740A1F63390800AAEDA0 /* Telegraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Telegraph.cpp; sourceTree = "<group>"; };
+		3999740B1F63390800AAEDA0 /* Telegraph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Telegraph.hpp; sourceTree = "<group>"; };
+		3999740E1F633FB700AAEDA0 /* Ability.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ability.cpp; sourceTree = "<group>"; };
+		3999740F1F633FB700AAEDA0 /* Ability.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ability.hpp; sourceTree = "<group>"; };
+		399974121F6379FC00AAEDA0 /* Healthbar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Healthbar.cpp; sourceTree = "<group>"; };
+		399974131F6379FC00AAEDA0 /* Healthbar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Healthbar.hpp; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
@@ -349,6 +361,12 @@
 				3919AE281F611335008E7041 /* Dijkstra.hpp */,
 				399974061F6204E200AAEDA0 /* CombatLogic.cpp */,
 				399974071F6204E200AAEDA0 /* CombatLogic.hpp */,
+				3999740A1F63390800AAEDA0 /* Telegraph.cpp */,
+				3999740B1F63390800AAEDA0 /* Telegraph.hpp */,
+				3999740E1F633FB700AAEDA0 /* Ability.cpp */,
+				3999740F1F633FB700AAEDA0 /* Ability.hpp */,
+				399974121F6379FC00AAEDA0 /* Healthbar.cpp */,
+				399974131F6379FC00AAEDA0 /* Healthbar.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -559,8 +577,11 @@
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				3919AE211F60D741008E7041 /* GameManager.cpp in Sources */,
+				399974141F6379FC00AAEDA0 /* Healthbar.cpp in Sources */,
 				399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
+				3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
 				3919AE0E1F5E6944008E7041 /* Pawn.cpp in Sources */,
+				399974101F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				3919AE291F611335008E7041 /* Dijkstra.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -573,11 +594,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3919AE221F60D741008E7041 /* GameManager.cpp in Sources */,
+				399974151F6379FC00AAEDA0 /* Healthbar.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				3919AE1E1F6087CC008E7041 /* GridGraph.cpp in Sources */,
 				3919AE161F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */,
+				3999740D1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
+				399974111F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
 				3919AE0F1F5E6944008E7041 /* Pawn.cpp in Sources */,

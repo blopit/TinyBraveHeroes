@@ -12,6 +12,8 @@
 #include "GridGraph.hpp"
 #include "cocos2d.h"
 #include "CombatLogic.hpp"
+#include "Ability.hpp"
+#include "Healthbar.hpp"
 
 struct CharInfo {
     int HP, SPD, MVE;
@@ -24,7 +26,7 @@ class Pawn : public cocos2d::Node {
     Pawn(GridTile *tile, CharInfo info);
     GridTile *tile;
     cocos2d::DrawNode *drawNode;
-    
+    Healthbar *healthbar;
     cocos2d::Label *waitLabel;
     
 public:
@@ -35,10 +37,14 @@ public:
     double waitTime;
     double waitSpeed();
     int remainingWait();
+    bool tick();
+    
+    Ability *selectedAbility;
     
     void setTile(GridTile* newTile, GridGraph* graph);
     GridTile* getTile();
     void jumpToDest(GridTile* destTile);
+    void activate();
     
     CC_SYNTHESIZE(cocos2d::Sprite*, hero, Hero);
     

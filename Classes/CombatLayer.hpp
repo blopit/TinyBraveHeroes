@@ -27,9 +27,24 @@ private:
     GridGraph *graph;
     std::vector<GridTile *> path;
     std::vector<GridTile *> viableMoves;
+    bool viableMovesTable[COLUMNS][ROWS] = {
+        {false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false}
+    };
+    
+    std::vector<GridTile *> telegraphed;
     GridTile *destTile;
     DrawNode *drawNode;
+    DrawNode *drawNodeAdd;
+    DrawNode *drawNodeBorder;
     DistData distData;
+    
+    void generatePaths(GridTile * dest);
+    void generateViable();
     
 public:
     
@@ -49,7 +64,6 @@ public:
     
     Vec2 getClosestTile(Vec2 p);
     GridTile *getTileAt(Vec2 p);
-    void generatePaths(GridTile * dest);
     
     // implement the "static create()" method manually
     CREATE_FUNC(CombatLayer);

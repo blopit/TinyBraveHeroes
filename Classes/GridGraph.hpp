@@ -9,10 +9,6 @@
 #ifndef GridTile_hpp
 #define GridTile_hpp
 
-#include <stdio.h>
-#include <vector>
-#include <map>
-#include <string>
 #include "cocos2d.h"
 
 #define ROWS 8

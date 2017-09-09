@@ -16,10 +16,14 @@ USING_NS_CC;
 bool Pawn::init() {
     hero = Sprite::create("res/whitepawn.png");
     addChild(hero);
-    waitLabel = Label::createWithSystemFont("wait", "arial", 24);
+    
+    waitLabel = Label::createWithSystemFont("wait", "arial", 20);
     waitLabel->setAnchorPoint(Vec2(0, 1));
     waitLabel->setTextColor(Color4B::WHITE);
     addChild(waitLabel);
+    
+    healthbar = Healthbar::create();
+    addChild(healthbar);
     
     return true;
 }
@@ -41,8 +45,15 @@ Pawn *Pawn::create(GridTile *tile, CharInfo info) {
 
 Pawn::Pawn(GridTile *tile, CharInfo info): tile(tile), info(info){
     tile->occupied = true;
-    waitTime = 100.0;
+    waitTime = 0.0;
+    selectedAbility = new Ability(); //TODO: fix
     drawNode = DrawNode::create();
+}
+
+void Pawn::activate() {
+    //ability0->activate()
+    
+    waitTime += selectedAbility->waitTime;
 }
 
 void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) {
@@ -56,6 +67,8 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
     waitLabel->setPosition(hero->getPosition() + Vec2(-tileSize/2, tileSize/2));
     waitLabel->draw(renderer, transform, transformFlags);
     
+    healthbar->setPosition(hero->getPosition() + Vec2(-tileSize/2, -tileSize/2));
+    healthbar->draw(renderer, transform, transformFlags);
 }
 
 double Pawn::waitSpeed() {
@@ -72,6 +85,12 @@ int Pawn::remainingWait() {
     return boundToRange(0, x, 999);
 }
 
+bool Pawn::tick() {
+    double waitSpeed = Pawn::waitSpeed();
+    waitTime -= waitSpeed;
+    return waitTime <= 0;
+}
+
 void Pawn::setTile(GridTile* newTile, GridGraph* graph) {
     tile = newTile;
 }
@@ -83,5 +102,6 @@ GridTile* Pawn::getTile() {
 void Pawn::jumpToDest(GridTile* destTile) {
     tile->occupied = false;
     tile = destTile;
+    activate();
     tile->occupied = true;
 }

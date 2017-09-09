@@ -10,6 +10,7 @@
 #define Dijkstra_hpp
 
 #include "GridGraph.hpp"
+
 using DistData = map<GridTile *, pair<int, GridTile *>>;
 
 std::vector<GridTile *> pathToTile(DistData mdist, GridTile * dest);

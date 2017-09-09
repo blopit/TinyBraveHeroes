@@ -42,7 +42,11 @@ bool CombatLayer::init()
     current = NULL;
     destTile = NULL;
     drawNode = DrawNode::create();
+    drawNodeAdd = DrawNode::create();
+    drawNodeBorder = DrawNode::create();
     addChild(drawNode, 10);
+    addChild(drawNodeAdd, 11);
+    addChild(drawNodeBorder, 12);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);
@@ -86,23 +90,105 @@ bool CombatLayer::init()
     return true;
 }
 
+bool compareMinWait(const Pawn *lhs, const Pawn *rhs){
+    return lhs->waitTime < rhs->waitTime;
+}
+
 void CombatLayer::update(float dt) {
+    int tileSize = GameManager::getInstance()->getTileSize();
     drawNode->clear();
+    drawNodeAdd->clear();
+    drawNodeAdd->setBlendFunc(BlendFunc::ADDITIVE);
+    drawNodeBorder->clear();
     
-    GridTile *citem = NULL;
-    for (auto item : path) {
-        if (citem != NULL) {
-            Vec2 v1 = citem->getCoordinate();
-            Vec2 v2 = item->getCoordinate();
-            drawNode->drawSegment(v1, v2, 4, Color4F::RED);
+    if (current) {
+        //TODO: fix this
+        GridTile *citem = NULL;
+        for (auto item : path) {
+            if (citem != NULL) {
+                auto v1 = citem->getCoordinate();
+                auto v2 = item->getCoordinate();
+                drawNodeBorder->drawSegment(v1, v2, 4, Color4F::RED);
+            }
+            citem = item;
         }
-        citem = item;
+        
+        auto n = Color4F(0, 0, 0, 0);
+        Color4F coloured[COLUMNS][ROWS] = {
+            {n,n,n,n,n,n,n,n},
+            {n,n,n,n,n,n,n,n},
+            {n,n,n,n,n,n,n,n},
+            {n,n,n,n,n,n,n,n},
+            {n,n,n,n,n,n,n,n},
+            {n,n,n,n,n,n,n,n}
+        };
+        
+        for (auto move : telegraphed) {
+            auto l = move->location;
+            auto v = move->getCoordinate();
+            auto vTR = v + Vec2(tileSize/2, tileSize/2);
+            auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
+            //drawNodeAdd->drawSolidRect(vBL, vTR, Color4F(1, 0, 0, 0.75));
+            coloured[l.x][l.y] = Color4F(1, 0, 0, 0.75);
+        }
+        
+        for (auto move : viableMoves) {
+            auto v = move->getCoordinate();
+            auto vTL = v + Vec2(-tileSize/2, tileSize/2);
+            auto vTR = v + Vec2(tileSize/2, tileSize/2);
+            auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
+            auto vBR = v + Vec2(tileSize/2, -tileSize/2);
+            auto l = move->location;
+            auto x = l.x;
+            auto y = l.y;
+            auto width = 4;
+            auto col = Color4F(0, 1, 1, 1);
+            
+            if (x == 0 or !viableMovesTable[x-1][y]) {
+                drawNodeBorder->drawSegment(vTL, vBL, width, col);
+            }
+            
+            if (x == COLUMNS-1 or !viableMovesTable[x+1][y]) {
+                drawNodeBorder->drawSegment(vTR, vBR, width, col);
+            }
+            
+            if (y == 0 or !viableMovesTable[x][y-1]) {
+                drawNodeBorder->drawSegment(vBL, vBR, width, col);
+            }
+            
+            if (y == ROWS-1 or !viableMovesTable[x][y+1]) {
+                drawNodeBorder->drawSegment(vTL, vTR, width, col);
+            }
+            
+            if (coloured[l.x][l.y] == n) {
+                coloured[l.x][l.y] = Color4F(0, 1, 1, 0.75);
+            }
+        }
+        
+        for (auto i = 0; i < COLUMNS; ++i) {
+            for (auto j = 0; j < ROWS; ++j) {
+                auto tile = graph->getTileAt(Vec(i, j));
+                auto v = tile->getCoordinate();
+                auto vTR = v + Vec2(tileSize/2, tileSize/2);
+                auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
+                drawNodeAdd->drawSolidRect(vBL, vTR, coloured[i][j]);
+            }
+        }
+        
+    } else {
+        std::vector<Pawn *> ready;
+        for (auto pawn : pawns) {
+            if (pawn->tick()) {
+                ready.push_back(pawn);
+            }
+        }
+        if (ready.size() > 0) {
+            auto it = std::min_element(ready.begin(), ready.end(),compareMinWait);
+            current = *it;
+        }
     }
     
-    for (auto move : viableMoves) {
-        Vec2 v = move->getCoordinate();
-        drawNode->drawCircle(v, 40, 0, 8, false, 1.0f, 1.0f, Color4F::BLUE);
-    }
+    
 }
 
 Point CombatLayer::touchToPoint(Touch * touch) {
@@ -115,14 +201,40 @@ bool CombatLayer::isTouchingSprite(Touch* touch, Pawn *pawn) {
     return (pos.getDistance(touchToPoint(touch)) < 100.0f);
 }
 
-void CombatLayer::generatePaths(GridTile * dest) {
-    path = pathToTile(distData, dest);
+void CombatLayer::generateViable() {
     viableMoves = reachableTiles(distData, current->info.MVE);
     
     // Cull occupied squares
-    viableMoves.erase(std::remove_if(viableMoves.begin(), viableMoves.end(), [](const GridTile *x) {
-        return x->occupied;
+    viableMoves.erase(std::remove_if(viableMoves.begin(), viableMoves.end(), [this](const GridTile *x) {
+        return x->occupied and x != current->getTile();
     }), viableMoves.end());
+    
+    for (auto i = 0; i < COLUMNS; ++i) {
+        for (auto j = 0; j < ROWS; ++j) {
+            viableMovesTable[i][j] = false;
+        }
+    }
+    
+    for (auto move : viableMoves) {
+        auto l = move->location;
+        viableMovesTable[l.x][l.y] = true;
+    }
+}
+
+void CombatLayer::generatePaths(GridTile * dest) {
+    path = pathToTile(distData, dest);
+    telegraphed.clear();
+    
+    Vec v = dest->location;
+    for (auto i = 0; i < COLUMNS; ++i) {
+        for (auto j = 0; j < ROWS; ++j) {
+            int x = v.x-i+5;
+            int y = j-v.y+7;
+            if (current->selectedAbility->tele[x][y] == 1) {
+                telegraphed.push_back(graph->getTileAt(Vec(i,j)));
+            }
+        }
+    }
 }
 
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
@@ -130,8 +242,10 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
         if (touch && isTouchingSprite(touch, current)) {
             dragging = true;
             auto tile = current->getTile();
+            destTile = tile;
             distData = dijkstra(graph, tile);
             generatePaths(tile);
+            generateViable();
             return true;
         }
     }
@@ -152,9 +266,11 @@ void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
     if (current and dragging) {
         current->jumpToDest(destTile);
         current = NULL;
+        destTile = NULL;
         dragging = false;
         path.clear();
         viableMoves.clear();
+        telegraphed.clear();
     }
 }
 
