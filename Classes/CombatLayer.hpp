@@ -38,6 +38,7 @@ private:
     };
     
     std::vector<GridTile *> telegraphed;
+    std::vector<GridTile *> targeted;
     GridTile *destTile;
     DrawNode *drawNode;
     DrawNode *drawNodeAdd;

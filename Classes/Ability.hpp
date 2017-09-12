@@ -15,7 +15,12 @@
 class Pawn;
 
 class Ability {
-    void setTelegraph(const telegraph t);
+    vector<GridTile *> addAllTargets(vector<Pawn *> pawns, vector<GridTile *> telegraphed);
+    vector<GridTile *> addAllTelegraphed(GridGraph *graph, GridTile *dest, telegraph t);
+    Direction getDirection(GridTile *src, GridTile *dest);
+    
+    vector<GridTile *> targeted;
+    vector<GridTile *> telegraphed;
     
 public:
     double damage = 50;
@@ -25,9 +30,10 @@ public:
     
     void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
     void trigger(Pawn *pawn);
+    pair<vector<GridTile *>, vector<GridTile *>> telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *src, GridTile *dest);
     
     Ability(Pawn *owner) : owner(owner) {
-        setTelegraph(cross_30);
+        tele = line_50();
     }
 };
 

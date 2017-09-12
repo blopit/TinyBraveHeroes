@@ -23,3 +23,17 @@ GameManager* GameManager::getInstance() {
     
     return gameManager;
 }
+
+cocos2d::Color4F factionColour(const Faction f){
+    switch (f) {
+        case ALLY:
+            return CB_SKBLUE;
+            break;
+        case ENEMY:
+            return CB_RED;
+            break;
+        default:
+            return CB_BLACK;
+            break;
+    }
+}

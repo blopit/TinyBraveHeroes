@@ -128,7 +128,7 @@ void CombatLayer::update(float dt) {
             if (citem != NULL) {
                 auto v1 = citem->getCoordinate();
                 auto v2 = item->getCoordinate();
-                drawNodeBorder->drawSegment(v1, v2, 4, Color4F::RED);
+                drawNodeBorder->drawSegment(v1, v2, 4, CB_RED);
             }
             citem = item;
         }
@@ -146,9 +146,18 @@ void CombatLayer::update(float dt) {
         for (auto move : telegraphed) {
             auto l = move->location;
             auto v = move->getCoordinate();
-            auto vTR = v + Vec2(tileSize/2, tileSize/2);
-            auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
-            coloured[l.x][l.y] = Color4F(0.8, 0, 0, 0.8);
+            
+            auto col = CB_RED;
+            for (auto targ : targeted) {
+                if (targ == current->getTile()) {
+                    continue;
+                } else if (move == targ) {
+                    col = CB_DKRED;
+                    break;
+                }
+            }
+            
+            coloured[l.x][l.y] = Color4F(col.r, col.g, col.b, 0.9);
         }
         
         for (auto move : viableMoves) {
@@ -157,7 +166,7 @@ void CombatLayer::update(float dt) {
             auto x = l.x;
             auto y = l.y;
             auto width = 4;
-            auto col = Color4F(0, 0.6, 0.8, 1);
+            auto col = CB_SKBLUE;
             auto vTL = v + Vec2(-tileSize/2, tileSize/2);
             auto vTR = v + Vec2(tileSize/2, tileSize/2);
             auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
@@ -180,7 +189,7 @@ void CombatLayer::update(float dt) {
             }
             
             if (coloured[l.x][l.y] == n) {
-                coloured[l.x][l.y] = Color4F(0, 0.6, 0.8, 0.8);
+                coloured[l.x][l.y] = Color4F(col.r, col.g, col.b, 0.9);
             }
         }
         
@@ -245,18 +254,11 @@ void CombatLayer::generateViable() {
 
 void CombatLayer::generatePaths(GridTile * dest) {
     path = pathToTile(distData, dest);
-    telegraphed.clear();
     
-    Vec v = dest->location;
-    for (auto i = 0; i < COLUMNS; ++i) {
-        for (auto j = 0; j < ROWS; ++j) {
-            int x = v.x-i+5;
-            int y = j-v.y+7;
-            if (current->selectedAbility->tele[x][y] == 1) {
-                telegraphed.push_back(graph->getTileAt(Vec(i,j)));
-            }
-        }
-    }
+    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, current->getTile(), dest);
+    
+    telegraphed = tt.first;
+    targeted = tt.second;
 }
 
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {

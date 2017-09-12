@@ -16,6 +16,7 @@ class Healthbar : public cocos2d::Node {
     Healthbar(int hp);
     cocos2d::DrawNode *drawNode;
     cocos2d::Label *hpLabel;
+    virtual void update(float dt) override;
     
 public:
     double maxHP, HP, simHP, dispHP;
