@@ -14,13 +14,13 @@ void Ability::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *>
     for (auto pawn : pawns) {
         if (pawn == owner) continue;
         if (std::find(targeted.begin(), targeted.end(), pawn->getTile()) != targeted.end()) {
-            pawn->setHP(pawn->getHP()-25);
+            trigger(pawn);
         }
     }
 }
 
 void Ability::trigger(Pawn *pawn) {
-    pawn->setHP(pawn->getHP() - damage);
+    pawn->setHP(pawn->getHP() - weight);
 }
 
 vector<GridTile *> Ability::addAllTelegraphed(GridGraph *graph, GridTile *dest, telegraph t) {

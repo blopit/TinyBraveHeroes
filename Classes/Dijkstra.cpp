@@ -8,13 +8,17 @@
 
 #include "Dijkstra.hpp"
 
-std::vector<GridTile *> pathToTile(DistData mdist, GridTile *dest) {
+std::vector<GridTile *> pathToTile(DistData mdist, GridTile *dest, std::vector<GridTile *> viable) {
     std::vector<GridTile *> path;
     auto end = dest;
-    path.push_back(end);
+    if (std::find(viable.begin(), viable.end(), end) != viable.end()) {
+        path.push_back(end);
+    }
     while (mdist[end].second != NULL) {
         end = mdist[end].second;
-        path.push_back(end);
+        if (std::find(viable.begin(), viable.end(), end) != viable.end()) {
+            path.push_back(end);
+        }
     }
     return path;
 }

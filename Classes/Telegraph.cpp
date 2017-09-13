@@ -54,7 +54,14 @@ telegraph tele_direction(telegraph from, Direction direction) {
             b = from;
             to = tele_union(a, b);
             break;
-        default:
+        case NONE:
+            a = from;
+            b = tele_rotate(from, Direction::E);
+            auto c = tele_rotate(from, Direction::S);
+            auto d = tele_rotate(from, Direction::W);
+            auto e = tele_union(a, b);
+            auto f = tele_union(c, d);
+            to = tele_union(e, f);
             break;
     }
     return to;

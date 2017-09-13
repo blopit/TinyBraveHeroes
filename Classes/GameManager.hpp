@@ -25,7 +25,7 @@
 #define CB_RED Color4F(0.8, 0.4, 0.0, 1.0)
 #define CB_DKRED Color4F(0.85, 0.0, 0.0, 1.0)
 
-#define CB_PINK Color4F(0.8, 0.4, 0.0, 1.0)
+#define CB_PINK Color4F(0.8, 0.6, 0.7, 1.0)
 
 enum Faction {
     ALLY,

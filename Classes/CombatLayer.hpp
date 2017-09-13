@@ -24,6 +24,8 @@ private:
     bool dragging = false;
     int timedRotate = 0;
     
+    void setLastViable(GridTile *tile);
+    
     std::vector<Pawn *> pawns;
     GridGraph *graph;
     std::vector<GridTile *> path;
@@ -47,7 +49,7 @@ private:
     
     Sprite *turnPointer;
     
-    void generatePaths(GridTile * dest);
+    void generatePaths();
     void generateViable();
     void setTurnPointerPosition();
     

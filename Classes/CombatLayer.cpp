@@ -252,13 +252,19 @@ void CombatLayer::generateViable() {
     }
 }
 
-void CombatLayer::generatePaths(GridTile * dest) {
-    path = pathToTile(distData, dest);
+void CombatLayer::generatePaths() {
+    path = pathToTile(distData, destTile, viableMoves);
     
-    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, current->getTile(), dest);
+    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, current->getTile(), destTile);
     
     telegraphed = tt.first;
     targeted = tt.second;
+}
+
+void CombatLayer::setLastViable(GridTile *tile) {
+    if (std::find(viableMoves.begin(), viableMoves.end(), tile) != viableMoves.end()) {
+        destTile = tile;
+    }
 }
 
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
@@ -266,11 +272,11 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
         if (touch && isTouchingSprite(touch, current)) {
             dragging = true;
             auto tile = current->getTile();
-            destTile = tile;
             distData = dijkstra(graph, tile);
-            generatePaths(tile);
             generateViable();
+            setLastViable(tile);
             turnPointer->setVisible(false);
+            generatePaths();
             return true;
         }
     }
@@ -281,8 +287,8 @@ void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
     if (current and dragging) {
         auto gotoTile = CombatLayer::getTileAt(touchToPoint(touch));
         if (destTile != gotoTile) {
-            destTile = gotoTile;
-            generatePaths(destTile);
+            setLastViable(gotoTile);
+            generatePaths();
         }
     }
 }
