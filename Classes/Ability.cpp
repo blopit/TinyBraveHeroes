@@ -20,7 +20,7 @@ void Ability::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *>
 }
 
 void Ability::trigger(Pawn *pawn) {
-    pawn->setHP(pawn->getHP() - weight);
+    pawn->damage(owner, weight, PHYSICAL);
 }
 
 vector<GridTile *> Ability::addAllTelegraphed(GridGraph *graph, GridTile *dest, telegraph t) {

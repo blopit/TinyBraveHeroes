@@ -76,4 +76,5 @@ public:
     CREATE_FUNC(CombatLayer);
 };
 
+
 #endif /* CombatLayer_hpp */

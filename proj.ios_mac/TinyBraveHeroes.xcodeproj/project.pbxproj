@@ -23,6 +23,10 @@
 		3919AE221F60D741008E7041 /* GameManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE1F1F60D741008E7041 /* GameManager.cpp */; };
 		3919AE291F611335008E7041 /* Dijkstra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE271F611335008E7041 /* Dijkstra.cpp */; };
 		3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3919AE271F611335008E7041 /* Dijkstra.cpp */; };
+		392617DC1F69BBDD001B6B27 /* AnimationBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392617DA1F69BBDD001B6B27 /* AnimationBlock.cpp */; };
+		392617DD1F69BBDE001B6B27 /* AnimationBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392617DA1F69BBDD001B6B27 /* AnimationBlock.cpp */; };
+		392617E11F69DD1E001B6B27 /* Passive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392617DF1F69DD1E001B6B27 /* Passive.cpp */; };
+		392617E21F69DD1E001B6B27 /* Passive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 392617DF1F69DD1E001B6B27 /* Passive.cpp */; };
 		399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
 		399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
 		3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740A1F63390800AAEDA0 /* Telegraph.cpp */; };
@@ -146,6 +150,10 @@
 		3919AE201F60D741008E7041 /* GameManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameManager.hpp; sourceTree = "<group>"; };
 		3919AE271F611335008E7041 /* Dijkstra.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dijkstra.cpp; sourceTree = "<group>"; };
 		3919AE281F611335008E7041 /* Dijkstra.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dijkstra.hpp; sourceTree = "<group>"; };
+		392617DA1F69BBDD001B6B27 /* AnimationBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationBlock.cpp; sourceTree = "<group>"; };
+		392617DB1F69BBDD001B6B27 /* AnimationBlock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimationBlock.hpp; sourceTree = "<group>"; };
+		392617DF1F69DD1E001B6B27 /* Passive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Passive.cpp; sourceTree = "<group>"; };
+		392617E01F69DD1E001B6B27 /* Passive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Passive.hpp; sourceTree = "<group>"; };
 		399974061F6204E200AAEDA0 /* CombatLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CombatLogic.cpp; sourceTree = "<group>"; };
 		399974071F6204E200AAEDA0 /* CombatLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CombatLogic.hpp; sourceTree = "<group>"; };
 		3999740A1F63390800AAEDA0 /* Telegraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Telegraph.cpp; sourceTree = "<group>"; };
@@ -367,6 +375,10 @@
 				3999740F1F633FB700AAEDA0 /* Ability.hpp */,
 				399974121F6379FC00AAEDA0 /* Healthbar.cpp */,
 				399974131F6379FC00AAEDA0 /* Healthbar.hpp */,
+				392617DA1F69BBDD001B6B27 /* AnimationBlock.cpp */,
+				392617DB1F69BBDD001B6B27 /* AnimationBlock.hpp */,
+				392617DF1F69DD1E001B6B27 /* Passive.cpp */,
+				392617E01F69DD1E001B6B27 /* Passive.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -578,6 +590,8 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				3919AE211F60D741008E7041 /* GameManager.cpp in Sources */,
 				399974141F6379FC00AAEDA0 /* Healthbar.cpp in Sources */,
+				392617DC1F69BBDD001B6B27 /* AnimationBlock.cpp in Sources */,
+				392617E11F69DD1E001B6B27 /* Passive.cpp in Sources */,
 				399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
 				3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
 				3919AE0E1F5E6944008E7041 /* Pawn.cpp in Sources */,
@@ -598,12 +612,14 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				3919AE1E1F6087CC008E7041 /* GridGraph.cpp in Sources */,
 				3919AE161F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
+				392617E21F69DD1E001B6B27 /* Passive.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */,
 				3999740D1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
 				399974111F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
+				392617DD1F69BBDE001B6B27 /* AnimationBlock.cpp in Sources */,
 				3919AE0F1F5E6944008E7041 /* Pawn.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

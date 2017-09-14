@@ -89,11 +89,11 @@ bool CombatLayer::init()
     
     
     //create pawn
-    auto pawn = Pawn::create(graph->getTileAt(Vec(0, 0)), CharInfo(100, 48, 25));
+    auto pawn = Pawn::create(graph->getTileAt(Vec(0, 0)), CharInfo("50,50,50,50,50,50,20"));
     pawns.push_back(pawn);
     this->addChild(pawn, 20);
     
-    pawn = Pawn::create(graph->getTileAt(Vec(4, 4)), CharInfo(100, 64, 20));
+    pawn = Pawn::create(graph->getTileAt(Vec(4, 4)), CharInfo("50,50,50,40,50,40,30"));
     pawns.push_back(pawn);
     this->addChild(pawn, 20);
     

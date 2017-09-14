@@ -27,14 +27,6 @@
 
 #define CB_PINK Color4F(0.8, 0.6, 0.7, 1.0)
 
-enum Faction {
-    ALLY,
-    ENEMY,
-    THIRD_PARTY_ENEMY,
-    THIRD_PARTY_ALLY
-};
-
-
 class GameManager
 {
 private:
@@ -51,7 +43,5 @@ template <class T>
 T boundToRange(T lower, T value, T upper) {
     return value < lower ? lower : value > upper ? upper : value;
 }
-
-cocos2d::Color4F factionColour(const Faction f);
 
 #endif /* GameManager_hpp */

@@ -15,9 +15,34 @@
 #include "Ability.hpp"
 #include "Healthbar.hpp"
 
+class Passive;
+
 struct CharInfo {
-    int HP, SPD, MVE;
-    CharInfo(int HP, int SPD, int MVE) : HP(HP), SPD(SPD), MVE(MVE) {}
+    int HP, ATT, INT, DEF, RES, SPD, MVE;
+    
+    CharInfo(int HP, int ATT, int INT, int DEF, int RES, int SPD, int MVE) : HP(HP), ATT(ATT), INT(INT), DEF(DEF), RES(RES), SPD(SPD), MVE(MVE) {}
+    CharInfo(string str) {
+        std::vector<int> vec;
+        std::stringstream ss(str);
+        int i;
+        while (ss >> i) {
+            vec.push_back(i);
+            if (ss.peek() == ',')
+                ss.ignore();
+        }
+        assert(vec.size() == 7);
+        HP = vec[0];
+        ATT = vec[1];
+        INT = vec[2];
+        DEF = vec[3];
+        RES = vec[4];
+        SPD = vec[5];
+        MVE = vec[6];
+    }
+    string to_string() {
+        std::stringstream fmt;
+        fmt << HP << "," << ATT << "," << INT << "," << DEF << "," << RES << "," << SPD << "," << MVE;
+    }
 };
 
 class Pawn : public cocos2d::Node {
@@ -28,11 +53,13 @@ class Pawn : public cocos2d::Node {
     cocos2d::DrawNode *drawNode;
     Healthbar *healthbar;
     cocos2d::Label *waitLabel;
-    
+
     double maxHP, HP;
     
 public:
     static Pawn* create(GridTile *tile, CharInfo info);
+    vector<Passive *> passives;
+    
     CharInfo info;
     bool selected = false;
     
@@ -46,13 +73,14 @@ public:
     void setTile(GridTile* newTile, GridGraph* graph);
     GridTile* getTile();
     
-    void setHP(double HP);
-    double getHP();
-    
     void jumpToDest(GridTile* destTile);
     void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
     
+    void triggerPassives(Trigger t);
+    
     CC_SYNTHESIZE(cocos2d::Sprite*, hero, Hero);
+    
+    void damage(Pawn *src, double amount, AttackType at);
     
 };
 

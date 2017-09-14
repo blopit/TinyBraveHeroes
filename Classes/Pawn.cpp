@@ -10,6 +10,7 @@
 #include <string>
 #include "Pawn.hpp"
 #include "GameManager.hpp"
+#include "Passive.hpp"
 
 USING_NS_CC;
 
@@ -23,7 +24,6 @@ bool Pawn::init() {
     waitLabel->enableOutline(Color4B::BLACK, 3);
     addChild(waitLabel);
     
-    maxHP = HP = info.HP;
     healthbar = Healthbar::create(maxHP);
     addChild(healthbar);
     
@@ -46,10 +46,13 @@ Pawn *Pawn::create(GridTile *tile, CharInfo info) {
 }
 
 Pawn::Pawn(GridTile *tile, CharInfo info): tile(tile), info(info){
+    maxHP = HP = info.HP;
     tile->occupied = true;
     waitTime = 0.0;
     selectedAbility = new Ability(this); //TODO: fix
     drawNode = DrawNode::create();
+    
+    givePassive(new Bleed(this, this, 50, 1), this);
 }
 
 void Pawn::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns) {
@@ -94,16 +97,10 @@ int Pawn::remainingWait() {
 bool Pawn::tick() {
     double waitSpeed = Pawn::waitSpeed();
     waitTime -= waitSpeed;
+    
+    triggerPassives(Trigger::PAWN_TICK);
+    
     return waitTime <= 0;
-}
-
-void Pawn::setHP(double HP_){
-    HP = HP_;
-    healthbar->HP = HP;
-}
-
-double Pawn::getHP(){
-    return HP;
 }
 
 void Pawn::setTile(GridTile* newTile, GridGraph* graph) {
@@ -119,4 +116,36 @@ void Pawn::jumpToDest(GridTile* destTile) {
     tile = destTile;
     selected = false;
     tile->occupied = true;
+}
+
+void Pawn::triggerPassives(Trigger t) {
+    for (auto p : passives) {
+        if (std::find(p->triggers.begin(), p->triggers.end(), t) == p->triggers.end()) continue;
+        p->tick(t);
+    }
+}
+
+void Pawn::damage(Pawn *src, double amount, AttackType at) {
+    double removal = amount;
+    
+    for (auto p : passives) {
+        if (std::find(p->triggers.begin(), p->triggers.end(), Trigger::BEFORE_DAMAGE_MIT) == p->triggers.end()) continue;
+        p->trigger_before_damage_mit(amount, at);
+    }
+    
+    switch (at) {
+        case PHYSICAL:
+            removal *= (1-cMIT(info.DEF));
+            break;
+        case MAGICAL:
+            removal *= (1-cMIT(info.RES));
+            break;
+        case MIXED:
+            removal *= (1-cMIT((info.RES+info.DEF)/2));
+            break;
+        default:
+            break;
+    }
+    
+    triggerPassives(Trigger::AFTER_DAMAGE_MIT);
 }
