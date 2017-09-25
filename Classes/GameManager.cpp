@@ -23,3 +23,39 @@ GameManager* GameManager::getInstance() {
     
     return gameManager;
 }
+
+
+const Vector<SpriteFrame *> GameManager::getAnimation(const char *format, int count) {
+    auto spritecache = SpriteFrameCache::getInstance();
+    Vector<SpriteFrame *> animFrames;
+    char str[255];
+    for(int i = 1; i <= count; i++) {
+        sprintf(str, format, i);
+        animFrames.pushBack(spritecache->getSpriteFrameByName(str));
+    }
+    return animFrames;
+}
+
+
+
+void GameManager::addAnimation(AnimationBlock *ab) {
+    animations.push_back(ab);
+}
+
+bool GameManager::isAnimationRunning() {
+    if (animations.empty()) {
+        return false;
+    } else {
+        if (!running) {
+            running = true;
+            
+            auto callback = CallFunc::create([=](){
+                running = false;
+                animations.erase(animations.begin());
+            });
+            
+            animations[0]->process(callback);
+        }
+        return true;
+    }
+}

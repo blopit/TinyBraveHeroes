@@ -11,11 +11,10 @@
 #include "Pawn.hpp"
 #include "GameManager.hpp"
 #include "Passive.hpp"
-
 USING_NS_CC;
 
 bool Pawn::init() {
-    hero = Sprite::create("res/whitepawn.png");
+    hero = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
     addChild(hero);
     
     waitLabel = Label::createWithTTF("wait", "fonts/dpcomic.ttf", 24);
@@ -26,6 +25,8 @@ bool Pawn::init() {
     
     healthbar = Healthbar::create(maxHP);
     addChild(healthbar);
+    
+    hero->setPosition(tile->getCoordinate());
     
     return true;
 }
@@ -52,7 +53,7 @@ Pawn::Pawn(GridTile *tile, CharInfo info): tile(tile), info(info){
     selectedAbility = new Ability(this); //TODO: fix
     drawNode = DrawNode::create();
     
-    givePassive(new Bleed(this, this, 50, 1), this);
+    //givePassive(new Bleed(this, this, 50, 1), this);
 }
 
 void Pawn::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns) {
@@ -62,7 +63,7 @@ void Pawn::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pa
 
 void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) {
     
-    hero->setPosition(tile->getCoordinate());
+    //hero->setPosition(tile->getCoordinate());
     hero->draw(renderer, transform, transformFlags);
     
     int tileSize = GameManager::getInstance()->getTileSize();
@@ -99,10 +100,23 @@ bool Pawn::tick() {
     waitTime -= waitSpeed;
     
     triggerPassives(Trigger::PAWN_TICK);
+    hero->setPosition(tile->getCoordinate());
     
     return waitTime <= 0;
 }
 
+void Pawn::setHP(double HP_){
+    HP = HP_;
+    //healthbar->HP = HP;
+}
+
+void Pawn::catchupDisplayHP(){
+    healthbar->HP = HP;
+}
+
+double Pawn::getHP(){
+    return HP;
+}
 void Pawn::setTile(GridTile* newTile, GridGraph* graph) {
     tile = newTile;
 }
@@ -148,4 +162,6 @@ void Pawn::damage(Pawn *src, double amount, AttackType at) {
     }
     
     triggerPassives(Trigger::AFTER_DAMAGE_MIT);
+    
+    setHP(getHP() - removal);
 }

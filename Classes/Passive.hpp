@@ -11,6 +11,8 @@
 
 #include "CombatLogic.hpp"
 
+#define DEFAULT_MAX_TRIGGERS 16
+
 class Pawn;
 
 typedef enum {
@@ -32,10 +34,14 @@ protected:
     Pawn *target;
     int duration;
     int timer;
+    int triggerCount = 0;
+    int maxTriggers = DEFAULT_MAX_TRIGGERS;
+    bool infinite;
     double stacks;
     std::string name;
 public:
-    Passive(std::string name, Pawn *src, Pawn *target, int duration, int stacks, std::vector<Trigger> triggers, Priority priority, Type type) : name(name), src(src), target(target), duration(duration), stacks(stacks), triggers(triggers), priority(priority), type(type) {}
+    Passive(std::string name, Pawn *src, Pawn *target, int duration, int stacks, std::vector<Trigger> triggers, Priority priority, Type type) : name(name), src(src), target(target), duration(duration), stacks(stacks), triggers(triggers), priority(priority), type(type), infinite(false) {}
+    Passive(std::string name, Pawn *src, Pawn *target, int stacks, std::vector<Trigger> triggers, Priority priority, Type type) : name(name), src(src), target(target), duration(0), stacks(stacks), triggers(triggers), priority(priority), type(type), infinite(true) {}
     virtual void purge();
     virtual void expire();
     virtual void stack(int duration, double amount);
@@ -45,7 +51,8 @@ public:
     Type type;
     friend bool operator< (const Passive &i, const Passive &j) { return (i.priority < j.priority);}
     
-    virtual void trigger_pawn_tick() {};
+    bool trigger();
+    virtual void trigger_pawn_tick() { triggerCount++; };
     virtual void trigger_before_damage_mit(double &damage, AttackType &at) {};
 };
 

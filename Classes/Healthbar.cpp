@@ -18,10 +18,10 @@ bool Healthbar::init() {
     addChild(drawNode);
     
     hpLabel =  Label::createWithTTF("HP", "fonts/dpcomic.ttf", 24);
-    hpLabel->setAnchorPoint(Vec2(0, 0));
+    hpLabel->setAnchorPoint(Vec2(1, 0));
     hpLabel->setTextColor(Color4B::WHITE);
     hpLabel->enableOutline(Color4B::BLACK, 3);
-    hpLabel->setPosition(Vec2(6, 0));
+    hpLabel->setPosition(Vec2(28, 0));
     addChild(hpLabel);
     
     this->scheduleUpdate();
@@ -62,7 +62,8 @@ void Healthbar::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform
     
     int dhp = boundToRange(0, (int)ceil(dispHP), 999) ;
     hpLabel->setString(std::to_string(dhp));
-    auto width = hpLabel->getBoundingBox().size.width;
+    auto width = 22; //hpLabel->getBoundingBox().size.width;
+    
     auto tileSize = GameManager::getInstance()->getTileSize();
     auto totSize = (tileSize - 16 - width);
     auto dispSize = totSize * dispHP / maxHP;

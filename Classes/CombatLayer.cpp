@@ -32,11 +32,18 @@ Scene* CombatLayer::createScene()
 bool CombatLayer::init()
 {
     
+    char format[255] = "res/spritesheet-%d.plist";
+    char str[255];
+    for(int i = 1; i <= 12; i++) {
+        sprintf(str, format, i);
+        SpriteFrameCache::getInstance()->addSpriteFramesWithFile(str);
+    }
+    
     auto bk = Sprite::create("res/IMG_1341.jpg");
     bk->setAnchorPoint(Vec(0,0));
     addChild(bk);
     
-    turnPointer = Sprite::create("res/turnpointer.png");
+    turnPointer = Sprite::createWithSpriteFrameName("misc/turnpointer.png");
     turnPointer->setVisible(false);
     addChild(turnPointer, 21);
     
@@ -53,10 +60,13 @@ bool CombatLayer::init()
     drawNode = DrawNode::create();
     drawNodeAdd = DrawNode::create();
     drawNodeBorder = DrawNode::create();
+    auto effectLayer = DrawNode::create();
+    GameManager::getInstance()->setEffectLayer(effectLayer);
+    
     addChild(drawNode, 10);
     addChild(drawNodeAdd, 11);
     addChild(drawNodeBorder, 12);
-    
+    addChild(effectLayer, 21);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);
@@ -204,18 +214,20 @@ void CombatLayer::update(float dt) {
         }
         
     } else {
-        std::vector<Pawn *> ready;
-        for (auto pawn : pawns) {
-            if (pawn->tick()) {
-                ready.push_back(pawn);
+        if (!GameManager::getInstance()->isAnimationRunning()) {
+            std::vector<Pawn *> ready;
+            for (auto pawn : pawns) {
+                if (pawn->tick()) {
+                    ready.push_back(pawn);
+                }
             }
-        }
-        if (ready.size() > 0) {
-            auto it = std::min_element(ready.begin(), ready.end(),compareMinWait);
-            current = *it;
-            current->selected = true;
-            turnPointer->setVisible(true);
-            CombatLayer::setTurnPointerPosition();
+            if (ready.size() > 0) {
+                auto it = std::min_element(ready.begin(), ready.end(),compareMinWait);
+                current = *it;
+                current->selected = true;
+                turnPointer->setVisible(true);
+                CombatLayer::setTurnPointerPosition();
+            }
         }
     }
     

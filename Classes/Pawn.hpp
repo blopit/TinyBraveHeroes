@@ -73,6 +73,9 @@ public:
     void setTile(GridTile* newTile, GridGraph* graph);
     GridTile* getTile();
     
+    void setHP(double HP);
+    void catchupDisplayHP();
+    double getHP();
     void jumpToDest(GridTile* destTile);
     void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
     

@@ -11,19 +11,20 @@
 
 #include "GridGraph.hpp"
 
+enum Direction {
+    N, NE, E, SE, S, SW, W, NW, NONE
+};
+
 #define TELE_SIZE 15
 #define TELE_CENT 7
 
 typedef std::vector< std::vector< char > > telegraph;
 
-enum Direction {
-    N, NE, E, SE, S, SW, W, NW, NONE
-};
-
 telegraph none();
 telegraph circfill_0();
 telegraph circfill_20();
 telegraph line_50();
+telegraph claw_20();
 
 telegraph tele_rotate(telegraph from, Direction direction);
 telegraph tele_direction(telegraph from, Direction direction);

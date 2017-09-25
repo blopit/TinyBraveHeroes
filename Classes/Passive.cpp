@@ -14,6 +14,14 @@ void givePassive(Passive *passive, Pawn *target) {
     std::sort(target->passives.begin(), target->passives.end());
 }
 
+bool Passive::trigger() {
+    triggerCount++;
+    if (triggerCount > maxTriggers) {
+        return true;
+    }
+    return false;
+}
+
 void Passive::purge() {
     expire();
 }
@@ -29,9 +37,10 @@ void Passive::stack(int duration, double amount) {
 void Passive::tickDown() {
     timer++;
     duration--;
-    if (duration <= 0) {
+    if (duration <= 0 and not infinite) {
         expire();
     }
+    triggerCount = 0;
 }
 
 void Passive::tick(Trigger t) {

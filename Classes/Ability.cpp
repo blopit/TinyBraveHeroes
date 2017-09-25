@@ -8,6 +8,8 @@
 
 #include "Ability.hpp"
 #include "Pawn.hpp"
+#include "AnimationBlock.hpp"
+#include "GameManager.hpp"
 
 void Ability::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns) {
     
@@ -21,6 +23,8 @@ void Ability::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *>
 
 void Ability::trigger(Pawn *pawn) {
     pawn->damage(owner, weight, PHYSICAL);
+
+    GameManager::getInstance()->addAnimation(new AnimClawSlash(owner, pawn));
 }
 
 vector<GridTile *> Ability::addAllTelegraphed(GridGraph *graph, GridTile *dest, telegraph t) {
@@ -113,11 +117,47 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
     }
 }
 
+Direction Ability::getDirectionSimp1(GridTile *src, GridTile *dest) {
+    Direction d = getDirection(src, dest);
+    
+    switch (d) {
+        case N:
+            return N;
+            break;
+        case NE:
+            return N;
+            break;
+        case E:
+            return E;
+            break;
+        case SE:
+            return S;
+            break;
+        case S:
+            return S;
+            break;
+        case SW:
+            return S;
+            break;
+        case W:
+            return W;
+            break;
+        case NW:
+            return N;
+            break;
+        case NONE:
+            return NONE;
+            break;
+        default:
+            break;
+    }
+}
+
 pair<vector<GridTile *>, vector<GridTile *>> Ability::telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *src, GridTile *dest) {
 
     
     tele = line_50();
-    tele = tele_direction(tele, getDirection(src, dest));
+    tele = tele_direction(tele, getDirectionSimp1(src, dest));
     tele = tele_subtract(tele, circfill_0());
     
     telegraphed = addAllTelegraphed(graph, dest, tele);
