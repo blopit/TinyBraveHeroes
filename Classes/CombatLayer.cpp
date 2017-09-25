@@ -34,7 +34,7 @@ bool CombatLayer::init()
     
     char format[255] = "res/spritesheet-%d.plist";
     char str[255];
-    for(int i = 1; i <= 12; i++) {
+    for(int i = 0; i <= 12; i++) {
         sprintf(str, format, i);
         SpriteFrameCache::getInstance()->addSpriteFramesWithFile(str);
     }
@@ -60,13 +60,20 @@ bool CombatLayer::init()
     drawNode = DrawNode::create();
     drawNodeAdd = DrawNode::create();
     drawNodeBorder = DrawNode::create();
+    
     auto effectLayer = DrawNode::create();
     GameManager::getInstance()->setEffectLayer(effectLayer);
+    auto particleLayer = DrawNode::create();
+    GameManager::getInstance()->setParticleLayer(particleLayer);
+    auto backLayer = DrawNode::create();
+    GameManager::getInstance()->setBackLayer(backLayer);
     
     addChild(drawNode, 10);
     addChild(drawNodeAdd, 11);
     addChild(drawNodeBorder, 12);
-    addChild(effectLayer, 21);
+    addChild(backLayer, 13);
+    addChild(particleLayer, 21);
+    addChild(effectLayer, 22);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);

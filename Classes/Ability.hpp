@@ -23,7 +23,7 @@ class Ability {
     vector<GridTile *> telegraphed;
     
 public:
-    double weight = 50;
+    double weight = 20;
     double waitTime = 20;
     telegraph tele;
     Pawn *owner;

@@ -57,6 +57,10 @@ class Pawn : public cocos2d::Node {
     double maxHP, HP;
     
 public:
+    cocos2d::Color4F highlight = cocos2d::Color4F::WHITE;
+    float highlightLeveL = 0.5f;
+    float highlightSpeed = 0.03f;
+    
     static Pawn* create(GridTile *tile, CharInfo info);
     vector<Passive *> passives;
     
@@ -82,6 +86,7 @@ public:
     void triggerPassives(Trigger t);
     
     CC_SYNTHESIZE(cocos2d::Sprite*, hero, Hero);
+    CC_SYNTHESIZE(cocos2d::Sprite*, overlay, Overlay);
     
     void damage(Pawn *src, double amount, AttackType at);
     

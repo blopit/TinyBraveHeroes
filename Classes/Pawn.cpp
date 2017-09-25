@@ -15,19 +15,29 @@ USING_NS_CC;
 
 bool Pawn::init() {
     hero = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
-    addChild(hero);
+    addChild(hero, 0);
+    
+    overlay = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
+    addChild(overlay, 1);
+    
+    
+    drawNode = DrawNode::create();
+    addChild(drawNode, 1);
+    BlendFunc brightnessBlend;
+    brightnessBlend.src = GL_DST_ALPHA;
+    brightnessBlend.dst = GL_ZERO;
+    drawNode->setBlendFunc(brightnessBlend);
     
     waitLabel = Label::createWithTTF("wait", "fonts/dpcomic.ttf", 24);
     waitLabel->setAnchorPoint(Vec2(0, 1));
     waitLabel->setTextColor(Color4B(Color4F(0.3, 1, 0, 1)));
     waitLabel->enableOutline(Color4B::BLACK, 3);
-    addChild(waitLabel);
+    addChild(waitLabel, 2);
     
     healthbar = Healthbar::create(maxHP);
-    addChild(healthbar);
+    addChild(healthbar, 2);
     
     hero->setPosition(tile->getCoordinate());
-    
     return true;
 }
 
@@ -51,7 +61,6 @@ Pawn::Pawn(GridTile *tile, CharInfo info): tile(tile), info(info){
     tile->occupied = true;
     waitTime = 0.0;
     selectedAbility = new Ability(this); //TODO: fix
-    drawNode = DrawNode::create();
     
     //givePassive(new Bleed(this, this, 50, 1), this);
 }
@@ -63,12 +72,35 @@ void Pawn::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pa
 
 void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) {
     
-    //hero->setPosition(tile->getCoordinate());
-    hero->draw(renderer, transform, transformFlags);
+    auto h = boundToRange(0.0f, highlightLeveL, 1.0f);
+    if (h > 0) {
+        drawNode->setVisible(true);
+        drawNode->clear();
+        drawNode->drawSolidRect(Vec2(0,0), Vec2(256,256), highlight);
+        
+        auto *renderTexture = RenderTexture::create(256, 256);
+        renderTexture->setPosition(Vec2(0,0));
+        renderTexture->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
+        auto mask = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
+        mask->setPosition(Vec2(128, 128));
+        mask->visit();
+        drawNode->visit();
+        renderTexture->end();
+        
+        overlay->setTexture(renderTexture->getSprite()->getTexture());
+        overlay->setTextureRect(Rect(0, 0, 256, 256));
+        
+        auto b = h * 0.2f;
+        overlay->setScale(1.0f + b, -1.0f - b);
+        overlay->setOpacity(h * 255.0f);
+        overlay->setPosition(hero->getPosition());
+        drawNode->setVisible(false);
+    }
     
     int tileSize = GameManager::getInstance()->getTileSize();
     
     if (!selected) {
+        waitLabel->draw(renderer, transform, transformFlags);
         waitLabel->setVisible(true);
         waitLabel->setString(std::to_string(remainingWait()));
         waitLabel->setPosition(hero->getPosition() + Vec2(-tileSize/2 + 6, tileSize/2));
@@ -78,9 +110,9 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
     }
     
     healthbar->setPosition(hero->getPosition() + Vec2(-tileSize/2, -tileSize/2));
-    healthbar->draw(renderer, transform, transformFlags);
+    
+    highlightLeveL = highlightLeveL - highlightSpeed < 0 ? 0 : highlightLeveL - highlightSpeed;
 }
-
 double Pawn::waitSpeed() {
     return cMULT(info.SPD);
 }

@@ -43,6 +43,8 @@ public:
     
     CC_SYNTHESIZE(int, tileSize, TileSize);
     CC_SYNTHESIZE(cocos2d::Node *, effectLayer, EffectLayer);
+    CC_SYNTHESIZE(cocos2d::Node *, particleLayer, ParticleLayer);
+    CC_SYNTHESIZE(cocos2d::Node *, backLayer, BackLayer);
     
     const cocos2d::Vector<cocos2d::SpriteFrame *> getAnimation(const char *format, int count);
 };
