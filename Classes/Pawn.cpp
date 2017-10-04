@@ -14,10 +14,10 @@
 USING_NS_CC;
 
 bool Pawn::init() {
-    hero = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
+    hero = Sprite::createWithSpriteFrameName("whitepawn.png");
     addChild(hero, 0);
     
-    overlay = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
+    overlay = Sprite::createWithSpriteFrameName("whitepawn.png");
     addChild(overlay, 1);
     
     
@@ -81,7 +81,7 @@ void Pawn::draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uin
         auto *renderTexture = RenderTexture::create(256, 256);
         renderTexture->setPosition(Vec2(0,0));
         renderTexture->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
-        auto mask = Sprite::createWithSpriteFrameName("chars/whitepawn.png");
+        auto mask = Sprite::createWithSpriteFrameName("whitepawn.png");
         mask->setPosition(Vec2(128, 128));
         mask->visit();
         drawNode->visit();

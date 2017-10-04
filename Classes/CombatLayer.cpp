@@ -11,6 +11,7 @@
 #include "Pawn.hpp"
 #include "GameManager.hpp"
 #include "CombatLogic.hpp"
+#include "Tooltip.hpp"
 
 Scene* CombatLayer::createScene()
 {
@@ -32,18 +33,15 @@ Scene* CombatLayer::createScene()
 bool CombatLayer::init()
 {
     
-    char format[255] = "res/spritesheet-%d.plist";
-    char str[255];
-    for(int i = 0; i <= 12; i++) {
-        sprintf(str, format, i);
-        SpriteFrameCache::getInstance()->addSpriteFramesWithFile(str);
-    }
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/blood.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/misc.plist");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/cut.plist");
     
     auto bk = Sprite::create("res/IMG_1341.jpg");
     bk->setAnchorPoint(Vec(0,0));
     addChild(bk);
     
-    turnPointer = Sprite::createWithSpriteFrameName("misc/turnpointer.png");
+    turnPointer = Sprite::createWithSpriteFrameName("turnpointer.png");
     turnPointer->setVisible(false);
     addChild(turnPointer, 21);
     
@@ -74,6 +72,9 @@ bool CombatLayer::init()
     addChild(backLayer, 13);
     addChild(particleLayer, 21);
     addChild(effectLayer, 22);
+    
+    auto tt = Tooltip::create("Thunderbolt", "ccc", "shoot thunder n shit");
+    addChild(tt, 23);
     
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(CombatLayer::onTouchBegan, this);

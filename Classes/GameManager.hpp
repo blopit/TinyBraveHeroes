@@ -13,20 +13,28 @@
 #include "AnimationBlock.hpp"
 
 #define CB_BLACK Color4F(0.0, 0.0, 0.0, 1.0)
-
 #define CB_SKBLUE Color4F(0.35, 0.7, 0.9, 1.0)
 #define CB_BLUE Color4F(0, 0.45, 0.7, 1.0)
-
 #define CB_GREEN Color4F(0.0, 0.6, 0.5, 1.0)
 #define CB_LTGREEN Color4F(0.4, 1.0, 0.6, 1.0)
-
 #define CB_YELLOW Color4F(0.95, 0.9, 0.25, 1.0)
-
 #define CB_ORANGE Color4F(0.9, 0.6, 0.0, 1.0)
 #define CB_RED Color4F(0.8, 0.4, 0.0, 1.0)
 #define CB_DKRED Color4F(0.85, 0.0, 0.0, 1.0)
-
 #define CB_PINK Color4F(0.8, 0.6, 0.7, 1.0)
+#define CB_WHITE Color4F(1.0, 1.0, 1.0, 1.0)
+
+#define CB_BLACK_A(A) Color4F(0.0, 0.0, 0.0, A)
+#define CB_SKBLUE_A(A) Color4F(0.35, 0.7, 0.9, A)
+#define CB_BLUE_A(A) Color4F(0, 0.45, 0.7, A)
+#define CB_GREEN_A(A) Color4F(0.0, 0.6, 0.5, A)
+#define CB_LTGREEN_A(A) Color4F(0.4, 1.0, 0.6, A)
+#define CB_YELLOW_A(A) Color4F(0.95, 0.9, 0.25, A)
+#define CB_ORANGE_A(A) Color4F(0.9, 0.6, 0.0, A)
+#define CB_RED_A(A) Color4F(0.8, 0.4, 0.0, A)
+#define CB_DKRED_A(A) Color4F(0.85, 0.0, 0.0, A)
+#define CB_PINK_A(A) Color4F(0.8, 0.6, 0.7, A)
+#define CB_WHITE_A(A) Color4F(1.0, 1.0, 1.0, A)
 
 class GameManager
 {

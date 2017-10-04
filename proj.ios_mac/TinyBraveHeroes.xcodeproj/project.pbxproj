@@ -35,6 +35,8 @@
 		399974111F633FB700AAEDA0 /* Ability.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740E1F633FB700AAEDA0 /* Ability.cpp */; };
 		399974141F6379FC00AAEDA0 /* Healthbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974121F6379FC00AAEDA0 /* Healthbar.cpp */; };
 		399974151F6379FC00AAEDA0 /* Healthbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974121F6379FC00AAEDA0 /* Healthbar.cpp */; };
+		399C8C721F8436ED00C69A23 /* Tooltip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399C8C701F8436ED00C69A23 /* Tooltip.cpp */; };
+		399C8C731F8436ED00C69A23 /* Tooltip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399C8C701F8436ED00C69A23 /* Tooltip.cpp */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
@@ -162,6 +164,8 @@
 		3999740F1F633FB700AAEDA0 /* Ability.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ability.hpp; sourceTree = "<group>"; };
 		399974121F6379FC00AAEDA0 /* Healthbar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Healthbar.cpp; sourceTree = "<group>"; };
 		399974131F6379FC00AAEDA0 /* Healthbar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Healthbar.hpp; sourceTree = "<group>"; };
+		399C8C701F8436ED00C69A23 /* Tooltip.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tooltip.cpp; sourceTree = "<group>"; };
+		399C8C711F8436ED00C69A23 /* Tooltip.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tooltip.hpp; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
@@ -379,6 +383,8 @@
 				392617DB1F69BBDD001B6B27 /* AnimationBlock.hpp */,
 				392617DF1F69DD1E001B6B27 /* Passive.cpp */,
 				392617E01F69DD1E001B6B27 /* Passive.hpp */,
+				399C8C701F8436ED00C69A23 /* Tooltip.cpp */,
+				399C8C711F8436ED00C69A23 /* Tooltip.hpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -585,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				399C8C721F8436ED00C69A23 /* Tooltip.cpp in Sources */,
 				3919AE1D1F6087CC008E7041 /* GridGraph.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -619,6 +626,7 @@
 				399974111F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
+				399C8C731F8436ED00C69A23 /* Tooltip.cpp in Sources */,
 				392617DD1F69BBDE001B6B27 /* AnimationBlock.cpp in Sources */,
 				3919AE0F1F5E6944008E7041 /* Pawn.cpp in Sources */,
 			);

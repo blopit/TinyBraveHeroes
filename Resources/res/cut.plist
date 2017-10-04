@@ -4,305 +4,305 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>chars/whitepawn.png</key>
+            <key>cut_a/cut_a_0001.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{46,55}</string>
                 <key>spriteSize</key>
-                <string>{128,128}</string>
+                <string>{136,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{128,128}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{128,128}}</string>
+                <string>{{1,1497},{136,110}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_a/cut_a_0002.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{9,10}</string>
+                <key>spriteSize</key>
+                <string>{212,208}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{1,471},{212,208}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/001.png</key>
+            <key>cut_a/cut_a_0003.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-11,-6}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{170,196}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{128,0},{64,64}}</string>
+                <string>{{1,863},{170,196}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_a/cut_a_0004.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-81,-92}</string>
+                <key>spriteSize</key>
+                <string>{40,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{205,681},{40,46}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_a/cut_a_0005.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-97,-112}</string>
+                <key>spriteSize</key>
+                <string>{6,10}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{235,179},{6,10}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_b/cut_b_0001.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-39,-66}</string>
+                <key>spriteSize</key>
+                <string>{92,124}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{113,1599},{92,124}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_b/cut_b_0002.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{5,-64}</string>
+                <key>spriteSize</key>
+                <string>{164,128}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{1,1367},{164,128}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/002.png</key>
+            <key>cut_b/cut_b_0003.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{28,-4}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{176,244}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{128,64},{64,64}}</string>
+                <string>{{1,1},{176,244}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_b/cut_b_0004.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,53}</string>
+                <key>spriteSize</key>
+                <string>{226,132}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{1,337},{226,132}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/003.png</key>
+            <key>cut_b/cut_b_0005.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-66,70}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{84,92}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{192,0},{64,64}}</string>
+                <string>{{167,1367},{84,92}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/004.png</key>
+            <key>cut_c/cut_c_0001.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{47,35}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{100,130}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{192,64},{64,64}}</string>
+                <string>{{113,1497},{100,130}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_c/cut_c_0002.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{14,18}</string>
+                <key>spriteSize</key>
+                <string>{168,168}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{1,1197},{168,168}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/005.png</key>
+            <key>cut_c/cut_c_0003.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-30,5}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{160,192}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{256,0},{64,64}}</string>
+                <string>{{1,1035},{160,192}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_c/cut_c_0004.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-82,-63}</string>
+                <key>spriteSize</key>
+                <string>{60,56}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{195,1035},{60,56}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>cut_c/cut_c_0005.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-70,-60}</string>
+                <key>spriteSize</key>
+                <string>{30,40}</string>
+                <key>spriteSourceSize</key>
+                <string>{256,256}</string>
+                <key>textureRect</key>
+                <string>{{215,517},{30,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/006.png</key>
+            <key>cut_d/cut_d_0001.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{76,-13}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{74,130}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{256,64},{64,64}}</string>
+                <string>{{171,1197},{74,130}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike01/007.png</key>
+            <key>cut_d/cut_d_0002.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{19,10}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{202,180}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{320,0},{64,64}}</string>
+                <string>{{1,681},{202,180}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike02/001.png</key>
+            <key>cut_d/cut_d_0003.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{5,-15}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{232,156}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{320,64},{64,64}}</string>
+                <string>{{1,179},{232,156}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fx/spike02/002.png</key>
+            <key>cut_d/cut_d_0004.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-50,-66}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{112,52}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{384,0},{64,64}}</string>
+                <string>{{199,863},{112,52}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>fx/spike02/003.png</key>
+            <key>cut_d/cut_d_0005.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-26,-58}</string>
                 <key>spriteSize</key>
-                <string>{64,64}</string>
+                <string>{44,32}</string>
                 <key>spriteSourceSize</key>
-                <string>{64,64}</string>
+                <string>{256,256}</string>
                 <key>textureRect</key>
-                <string>{{384,64},{64,64}}</string>
+                <string>{{215,471},{44,32}}</string>
                 <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/004.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{448,0},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/005.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{448,64},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/006.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{512,0},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/007.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{512,64},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/008.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{576,0},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/009.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{576,64},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>fx/spike02/010.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{64,64}</string>
-                <key>spriteSourceSize</key>
-                <string>{64,64}</string>
-                <key>textureRect</key>
-                <string>{{640,0},{64,64}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>misc/marker0.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{32,32}</string>
-                <key>spriteSourceSize</key>
-                <string>{32,32}</string>
-                <key>textureRect</key>
-                <string>{{640,64},{32,32}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>misc/turnpointer.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{40,20}</string>
-                <key>spriteSourceSize</key>
-                <string>{40,20}</string>
-                <key>textureRect</key>
-                <string>{{640,96},{40,20}}</string>
-                <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -314,13 +314,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>spritesheet.png</string>
+            <string>cut.png</string>
             <key>size</key>
-            <string>{704,128}</string>
+            <string>{252,1692}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:96936524042cb4b09960e60c5be67d4c:9877885251468cf525fab6f50d13125c:1de88c2a7237d4cdf78de8d8ad4f4c7e$</string>
+            <string>$TexturePacker:SmartUpdate:c2b659374bedeca89b02fdd2c36a65b4:4c3bb56e00a1e9e118e4e2456b1b8e8b:cd53d74a8837be9034a69503434df70a$</string>
             <key>textureFileName</key>
-            <string>spritesheet.png</string>
+            <string>cut.png</string>
         </dict>
     </dict>
 </plist>
