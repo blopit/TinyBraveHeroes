@@ -41,9 +41,11 @@ private:
     
     std::vector<GridTile *> telegraphed;
     std::vector<GridTile *> targeted;
+    GridTile *lastTile;
     GridTile *destTile;
     DrawNode *drawNode;
     DrawNode *drawNodeAdd;
+    DrawNode *drawNodeTele;
     DrawNode *drawNodeBorder;
     DistData distData;
     
@@ -61,6 +63,8 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init() override;
     virtual void update(float dt) override;
+    
+    cocos2d::Vec2 mouse = Vec(0, 0);
     
     Point touchToPoint(Touch* touch);
     bool isTouchingSprite(Touch* touch, Pawn *pawn);

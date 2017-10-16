@@ -22,7 +22,7 @@ void Ability::activate(GridTile *location, GridGraph *graph, std::vector<Pawn *>
 }
 
 void Ability::trigger(Pawn *pawn) {
-    pawn->damage(owner, weight, PHYSICAL);
+    pawn->damage(owner, weight*(cMULT(owner->info.ATT)), PHYSICAL);
 
     GameManager::getInstance()->addAnimation(new AnimClawSlash(owner, pawn));
 }
@@ -121,32 +121,32 @@ Direction Ability::getDirectionSimp1(GridTile *src, GridTile *dest) {
     Direction d = getDirection(src, dest);
     
     switch (d) {
-        case N:
-            return N;
+        case Direction::N:
+            return Direction::N;
             break;
-        case NE:
-            return N;
+        case Direction::NE:
+            return Direction::N;
             break;
-        case E:
-            return E;
+        case Direction::E:
+            return Direction::E;
             break;
-        case SE:
-            return S;
+        case Direction::SE:
+            return Direction::S;
             break;
-        case S:
-            return S;
+        case Direction::S:
+            return Direction::S;
             break;
-        case SW:
-            return S;
+        case Direction::SW:
+            return Direction::S;
             break;
-        case W:
-            return W;
+        case Direction::W:
+            return Direction::W;
             break;
-        case NW:
-            return N;
+        case Direction::NW:
+            return Direction::N;
             break;
-        case NONE:
-            return NONE;
+        case Direction::NONE:
+            return Direction::NONE;
             break;
         default:
             break;
@@ -156,8 +156,27 @@ Direction Ability::getDirectionSimp1(GridTile *src, GridTile *dest) {
 pair<vector<GridTile *>, vector<GridTile *>> Ability::telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *src, GridTile *dest) {
 
     
-    tele = line_50();
-    tele = tele_direction(tele, getDirectionSimp1(src, dest));
+    tele = teleo = line_50();
+    auto r = getDirectionSimp1(src, dest);
+    
+    switch (r) {
+        case Direction::N:
+            rotation = 0;
+            break;
+        case Direction::E:
+            rotation = 90;
+            break;
+        case Direction::S:
+            rotation = 180;
+            break;
+        case Direction::W:
+            rotation = 270;
+            break;
+        default:
+            break;
+    }
+    
+    tele = tele_direction(tele, r);
     tele = tele_subtract(tele, circfill_0());
     
     telegraphed = addAllTelegraphed(graph, dest, tele);

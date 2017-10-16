@@ -23,6 +23,7 @@
 #define CB_DKRED Color4F(0.85, 0.0, 0.0, 1.0)
 #define CB_PINK Color4F(0.8, 0.6, 0.7, 1.0)
 #define CB_WHITE Color4F(1.0, 1.0, 1.0, 1.0)
+#define CB_TEXT Color4F(0.7, 0.8, 1.0, 1.0)
 
 #define CB_BLACK_A(A) Color4F(0.0, 0.0, 0.0, A)
 #define CB_SKBLUE_A(A) Color4F(0.35, 0.7, 0.9, A)

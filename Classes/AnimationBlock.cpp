@@ -18,7 +18,7 @@ void AnimClawSlash::process(CallFunc *cf) {
     float impact = 30;
     float s = 0.5f;
     
-    auto frames = gm->getAnimation("fx/cut_c/cut_c_%04d.png", n);
+    auto frames = gm->getAnimation("cut_c/cut_c_%04d.png", n);
     auto sprite = Sprite::createWithSpriteFrame(frames.front());
     gm->getEffectLayer()->addChild(sprite);
     sprite->setPosition(dest->getTile()->getCoordinate());
@@ -87,7 +87,7 @@ void PtPow::process() {
     float s = 0.3f;
     
     auto gm = GameManager::getInstance();
-    auto frames = gm->getAnimation("fx/blood_c/blood_c_%04d.png", n);
+    auto frames = gm->getAnimation("blood_c/blood_c_%04d.png", n);
     auto sprite = Sprite::createWithSpriteFrame(frames.front());
     gm->getParticleLayer()->addChild(sprite);
     sprite->setPosition(loc);

@@ -55,8 +55,10 @@ bool CombatLayer::init()
     graph = new GridGraph();
     current = NULL;
     destTile = NULL;
+    lastTile = NULL;
     drawNode = DrawNode::create();
     drawNodeAdd = DrawNode::create();
+    drawNodeTele = DrawNode::create();
     drawNodeBorder = DrawNode::create();
     
     auto effectLayer = DrawNode::create();
@@ -68,8 +70,9 @@ bool CombatLayer::init()
     
     addChild(drawNode, 10);
     addChild(drawNodeAdd, 11);
-    addChild(drawNodeBorder, 12);
-    addChild(backLayer, 13);
+    addChild(drawNodeTele, 11);
+    addChild(drawNodeBorder, 13);
+    addChild(backLayer, 14);
     addChild(particleLayer, 21);
     addChild(effectLayer, 22);
     
@@ -111,7 +114,7 @@ bool CombatLayer::init()
     pawns.push_back(pawn);
     this->addChild(pawn, 20);
     
-    pawn = Pawn::create(graph->getTileAt(Vec(4, 4)), CharInfo("50,50,50,40,50,40,30"));
+    pawn = Pawn::create(graph->getTileAt(Vec(4, 4)), CharInfo("50,100,0,40,50,40,30"));
     pawns.push_back(pawn);
     this->addChild(pawn, 20);
     
@@ -126,6 +129,28 @@ void CombatLayer::setTurnPointerPosition() {
     turnPointer->setPosition(current->getTile()->getCoordinate() + Vec2(0, 70 + 10 * sin(MATH_DEG_TO_RAD(timedRotate * 5))));
 }
 
+float rotateToTarget(float cur, float tar, float speed) {
+    auto a = (tar - cur);
+    float angleDiff = (int(a + 180) % 360) - 180;
+    if (abs(angleDiff) < speed) {
+        return tar;
+    } else {
+        return cur + (angleDiff < 0 ? -1 : 1) * speed;
+    }
+}
+
+float rotateToTargetFactor(float cur, float tar, float factor) {
+    auto a = (tar - cur);
+    float angleDiff = (int(a + 180) % 360) - 180;
+    float speed = abs(angleDiff) * factor;
+    
+    if (abs(angleDiff) < speed) {
+        return tar;
+    } else {
+        return cur + (angleDiff < 0 ? -1 : 1) * speed;
+    }
+}
+
 void CombatLayer::update(float dt) {
     timedRotate = (timedRotate+1) % 360;
     
@@ -133,7 +158,13 @@ void CombatLayer::update(float dt) {
     drawNode->clear();
     drawNodeAdd->clear();
     drawNodeAdd->setBlendFunc(BlendFunc::ADDITIVE);
+    drawNodeTele->clear();
+    drawNodeTele->setBlendFunc(BlendFunc::ADDITIVE);
     drawNodeBorder->clear();
+    
+    if (lastTile) {
+        drawNode->drawSolidCircle(lastTile->getCoordinate(), 50, 0, 8, Color4F::RED);
+    }
     
     if (current) {
         if (!dragging) {
@@ -162,20 +193,27 @@ void CombatLayer::update(float dt) {
         };
         
         for (auto move : telegraphed) {
-            auto l = move->location;
+            //auto l = move->location;
             auto v = move->getCoordinate();
             
-            auto col = CB_RED;
+            auto col = CB_WHITE;
+            auto a = 0.45;
             for (auto targ : targeted) {
                 if (targ == current->getTile()) {
                     continue;
                 } else if (move == targ) {
                     col = CB_DKRED;
+                    a = 0.9;
+                    
+                    auto vTR = v + Vec2(tileSize/2, tileSize/2);
+                    auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
+                    drawNodeBorder->drawSolidRect(vBL, vTR, CB_DKRED_A(0.65));
+                    
                     break;
                 }
             }
             
-            coloured[l.x][l.y] = Color4F(col.r, col.g, col.b, 0.9);
+            //coloured[l.x][l.y] = Color4F(col.r, col.g, col.b, a);
         }
         
         for (auto move : viableMoves) {
@@ -215,10 +253,28 @@ void CombatLayer::update(float dt) {
             for (auto j = 0; j < ROWS; ++j) {
                 auto tile = graph->getTileAt(Vec(i, j));
                 auto v = tile->getCoordinate();
+                
                 auto vTR = v + Vec2(tileSize/2, tileSize/2);
                 auto vBL = v + Vec2(-tileSize/2, -tileSize/2);
                 drawNodeAdd->drawSolidRect(vBL, vTR, coloured[i][j]);
             }
+        }
+        
+        if (dragging) {
+            for (auto i = 0; i < TELE_SIZE; ++i) {
+                for (auto j = 0; j < TELE_SIZE; ++j) {
+                    auto t = current->selectedAbility->teleo[i][j];
+                    if (t != 0 and t != 2) {
+                        auto d = Vec2(tileSize * (i-TELE_CENT), tileSize * (j-TELE_CENT));
+                        auto vTR = d + Vec2(tileSize/2, tileSize/2);
+                        auto vBL = d + Vec2(-tileSize/2, -tileSize/2);
+                        drawNodeTele->drawSolidRect(vBL, vTR, CB_ORANGE_A(0.95));
+                    }
+                }
+            }
+            
+            drawNodeTele->setRotation(rotateToTargetFactor(drawNodeTele->getRotation(), current->selectedAbility->rotation, 0.3));
+            drawNodeTele->setPosition(mouse);
         }
         
     } else {
@@ -275,7 +331,7 @@ void CombatLayer::generateViable() {
 void CombatLayer::generatePaths() {
     path = pathToTile(distData, destTile, viableMoves);
     
-    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, current->getTile(), destTile);
+    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, lastTile ? lastTile : current->getTile(), destTile);
     
     telegraphed = tt.first;
     targeted = tt.second;
@@ -288,6 +344,7 @@ void CombatLayer::setLastViable(GridTile *tile) {
 }
 
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
+    mouse = touch->getLocation();
     if (current) {
         if (touch && isTouchingSprite(touch, current)) {
             dragging = true;
@@ -297,6 +354,7 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
             setLastViable(tile);
             turnPointer->setVisible(false);
             generatePaths();
+            lastTile = NULL;
             return true;
         }
     }
@@ -304,16 +362,35 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
 }
 
 void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
+    mouse = touch->getLocation();
     if (current and dragging) {
         auto gotoTile = CombatLayer::getTileAt(touchToPoint(touch));
         if (destTile != gotoTile) {
-            setLastViable(gotoTile);
+            if (std::find(viableMoves.begin(), viableMoves.end(), gotoTile) != viableMoves.end()) {
+                
+                vector<GridTile*> adjmoves;
+                copy_if(begin(viableMoves), end(viableMoves), back_inserter(adjmoves), [=] (const GridTile *p1) -> bool {
+                    return Vec2(p1->location).distance(gotoTile->location) == 1;
+                });
+                
+                if (adjmoves.size() > 0) {
+                    lastTile = *min_element(adjmoves.begin(), adjmoves.end(), [=] (const GridTile *p1, const GridTile *p2) -> bool {
+                        return Vec2(p1->location).distance(destTile->location) < Vec2(p2->location).distance(destTile->location);
+                    });
+                } else {
+                    lastTile = NULL;
+                }
+                
+                destTile = gotoTile;
+            }
+            
             generatePaths();
         }
     }
 }
 
 void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
+    mouse = touch->getLocation();
     if (current and dragging) {
         current->jumpToDest(destTile);
         current->activate(destTile, graph, pawns);
@@ -325,7 +402,6 @@ void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
         telegraphed.clear();
     }
 }
-
 
 
 ///////////////////////////////////////////

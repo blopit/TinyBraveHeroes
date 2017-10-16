@@ -10,20 +10,20 @@
 
 #include "cocos2d.h"
 
-#define TTW 400
-#define TTH 200
-
 class Tooltip : public cocos2d::Node {
     virtual bool init() override;
-    std::string name, right, description;
+    virtual void update(float dt) override;
     cocos2d::DrawNode *drawNode;
-    Tooltip(std::string name, std::string right, std::string description) : name(name), right(right), description(description) {};
-    //cocos2d::Label *hpLabel;
+    float TTW;
+    
+    Tooltip(std::string name, std::string right, std::string description) : name(name), right(right), description(description), TTW(500), hidden(false) {};
+    Tooltip(float width, std::string name, std::string right, std::string description) : name(name), right(right), description(description), TTW(width), hidden(false) {};
     
 public:
-    
+    std::string name, right, description;
     static Tooltip* create(std::string name, std::string right, std::string description);
-    //virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4& transform, uint32_t transformFlags) override;
+    
+    CC_SYNTHESIZE(bool, hidden, Hidden);
 };
 
 #endif /* Tooltip_hpp */

@@ -22,39 +22,39 @@ telegraph tele_direction(telegraph from, Direction direction) {
     telegraph to = none();
     telegraph a, b;
     switch (direction) {
-        case N:
+        case Direction::N:
             to = from;
             break;
-        case NE:
+        case Direction::NE:
             a = tele_rotate(from, Direction::E);
             b = from;
             to = tele_union(a, b);
             break;
-        case E:
+        case Direction::E:
             to = tele_rotate(from, Direction::E);
             break;
-        case SE:
+        case Direction::SE:
             a = tele_rotate(from, Direction::E);
             b = tele_rotate(from, Direction::S);
             to = tele_union(a, b);
             break;
-        case S:
+        case Direction::S:
             to = tele_rotate(from, Direction::S);
             break;
-        case SW:
+        case Direction::SW:
             a = tele_rotate(from, Direction::W);
             b = tele_rotate(from, Direction::S);
             to = tele_union(a, b);
             break;
-        case W:
+        case Direction::W:
             to = tele_rotate(from, Direction::W);
             break;
-        case NW:
+        case Direction::NW:
             a = tele_rotate(from, Direction::W);
             b = from;
             to = tele_union(a, b);
             break;
-        case NONE:
+        case Direction::NONE:
             a = from;
             b = tele_rotate(from, Direction::E);
             auto c = tele_rotate(from, Direction::S);
@@ -73,28 +73,28 @@ telegraph tele_rotate(telegraph from, Direction direction) {
     to = from;
     
     switch (direction) {
-        case N:
+        case Direction::N:
             repeat = 0;
             break;
-        case NE:
+        case Direction::NE:
             repeat = 0;
             break;
-        case E:
+        case Direction::E:
             repeat = 3;
             break;
-        case SE:
+        case Direction::SE:
             repeat = 2;
             break;
-        case S:
+        case Direction::S:
             repeat = 2;
             break;
-        case SW:
+        case Direction::SW:
             repeat = 2;
             break;
-        case W:
+        case Direction::W:
             repeat = 1;
             break;
-        case NW:
+        case Direction::NW:
             repeat = 0;
             break;
         default:
@@ -162,7 +162,7 @@ telegraph circfill_0() {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -182,7 +182,7 @@ telegraph circfill_20() {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,1,1,1,0,0,0,0,0,0},
-        {0,0,0,0,0,1,1,1,1,1,0,0,0,0,0},
+        {0,0,0,0,0,1,1,2,1,1,0,0,0,0,0},
         {0,0,0,0,0,0,1,1,1,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -199,13 +199,13 @@ telegraph line_50() {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,0,0,1,1,1,0,1,1,1,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,2,1,1,1,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -222,8 +222,28 @@ telegraph claw_20() {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,2,1,1,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    };
+}
+
+telegraph heart_0() {
+    return {
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0},
+        {0,0,0,0,0,0,1,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,1,2,0,1,0,0,0,0,0,0},
+        {0,0,0,0,0,0,1,0,0,1,0,0,0,0,0},
         {0,0,0,0,0,0,0,1,1,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

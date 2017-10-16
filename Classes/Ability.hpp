@@ -14,6 +14,12 @@
 
 class Pawn;
 
+enum class MoveModifier {
+    ADDTIVE,
+    SET,
+    NONE
+};
+
 class Ability {
     vector<GridTile *> addAllTargets(vector<Pawn *> pawns, vector<GridTile *> telegraphed);
     vector<GridTile *> addAllTelegraphed(GridGraph *graph, GridTile *dest, telegraph t);
@@ -23,9 +29,17 @@ class Ability {
     vector<GridTile *> telegraphed;
     
 public:
-    double weight = 20;
+    double weight = 20; // Ai stuff???
+    
     double waitTime = 20;
+    double castTime = 0;
+    double cooldownTime = 0;
+    MoveModifier moveModType = MoveModifier::SET;
+    double moveMod = 20;
+    float rotation = 0;
+    
     telegraph tele;
+    telegraph teleo;
     Pawn *owner;
     
     virtual void activate(GridTile *location, GridGraph *graph, std::vector<Pawn *> pawns);
@@ -33,7 +47,7 @@ public:
     virtual pair<vector<GridTile *>, vector<GridTile *>> telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *src, GridTile *dest);
     
     Ability(Pawn *owner) : owner(owner) {
-        tele = claw_20();
+        tele = teleo = claw_20();
     }
 };
 

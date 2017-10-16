@@ -21,6 +21,15 @@ struct CharInfo {
     int HP, ATT, INT, DEF, RES, SPD, MVE;
     
     CharInfo(int HP, int ATT, int INT, int DEF, int RES, int SPD, int MVE) : HP(HP), ATT(ATT), INT(INT), DEF(DEF), RES(RES), SPD(SPD), MVE(MVE) {}
+    
+    /*
+     CHAR ID
+     HP, ATT, INT, DEF, RES, SPD, MVE
+     AB1, AB2, AB3, AB4
+     P1, P2, P3, P4
+     relationships
+     */
+    
     CharInfo(string str) {
         std::vector<int> vec;
         std::stringstream ss(str);
