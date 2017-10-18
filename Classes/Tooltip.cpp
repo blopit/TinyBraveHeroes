@@ -7,10 +7,12 @@
 #include <regex>
 #include <iostream>
 
-#include "GameManager.hpp"
 #include "Tooltip.hpp"
+#include "Utils.hpp"
+#include "Telegraph.hpp"
 
 USING_NS_CC;
+using namespace std;
 
 void Tooltip::update(float dt) {
     

@@ -7,7 +7,7 @@
 //
 
 #include "CombatLogic.hpp"
-#include "GameManager.hpp"
+#include "Utils.hpp"
 
 USING_NS_CC;
 

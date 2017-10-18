@@ -7,6 +7,7 @@
 //
 
 #include "Healthbar.hpp"
+#include "Utils.hpp"
 #include "GameManager.hpp"
 
 USING_NS_CC;

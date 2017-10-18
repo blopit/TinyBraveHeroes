@@ -9,8 +9,10 @@
 #include <iostream>
 #include <string>
 #include "Pawn.hpp"
-#include "GameManager.hpp"
+#include "Utils.hpp"
 #include "Passive.hpp"
+#include "GameManager.hpp"
+
 USING_NS_CC;
 
 bool Pawn::init() {

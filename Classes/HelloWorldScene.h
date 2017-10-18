@@ -2,6 +2,16 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "Character.hpp"
+
+enum class MenuState {
+    HOME,
+    TAVERN,
+    CARAVAN,
+    BLACKSMITH,
+    SUMMON,
+    BARRACKS,
+};
 
 class HelloWorld : public cocos2d::Scene
 {
@@ -17,6 +27,9 @@ public:
     CREATE_FUNC(HelloWorld);
     
     void step(float dt);
+    
+    Character *guy = NULL;
+    int total = 0;
     
 private:
     cocos2d::Sprite *sprite;

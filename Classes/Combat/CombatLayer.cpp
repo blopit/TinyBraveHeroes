@@ -141,10 +141,10 @@ float rotateToTarget(float cur, float tar, float speed) {
 
 float rotateToTargetFactor(float cur, float tar, float factor) {
     auto a = (tar - cur);
-    float angleDiff = (int(a + 180) % 360) - 180;
+    float angleDiff = fmod(a + 180, 360) - 180;
     float speed = abs(angleDiff) * factor;
     
-    if (abs(angleDiff) < speed) {
+    if (abs(angleDiff) <= speed) {
         return tar;
     } else {
         return cur + (angleDiff < 0 ? -1 : 1) * speed;
@@ -161,10 +161,6 @@ void CombatLayer::update(float dt) {
     drawNodeTele->clear();
     drawNodeTele->setBlendFunc(BlendFunc::ADDITIVE);
     drawNodeBorder->clear();
-    
-    if (lastTile) {
-        drawNode->drawSolidCircle(lastTile->getCoordinate(), 50, 0, 8, Color4F::RED);
-    }
     
     if (current) {
         if (!dragging) {
@@ -274,7 +270,21 @@ void CombatLayer::update(float dt) {
             }
             
             drawNodeTele->setRotation(rotateToTargetFactor(drawNodeTele->getRotation(), current->selectedAbility->rotation, 0.3));
-            drawNodeTele->setPosition(mouse);
+            
+            if (mouse.distance(prevMouse) < 10) {
+                idle++;
+            } else {
+                idle = 0;
+            }
+            
+            if (idle > 30) {
+                auto dest = destTile->getCoordinate();
+                auto current = drawNodeTele->getPosition();
+                drawNodeTele->setPosition(current + (dest - current) * 0.3);
+            } else {
+                drawNodeTele->setPosition(mouse);
+            }
+            
         }
         
     } else {
@@ -331,7 +341,7 @@ void CombatLayer::generateViable() {
 void CombatLayer::generatePaths() {
     path = pathToTile(distData, destTile, viableMoves);
     
-    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, lastTile ? lastTile : current->getTile(), destTile);
+    auto tt = current->selectedAbility->telegraphedTargets(graph, pawns, destTile, deltaMouse);
     
     telegraphed = tt.first;
     targeted = tt.second;
@@ -344,6 +354,7 @@ void CombatLayer::setLastViable(GridTile *tile) {
 }
 
 bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
+    prevMouse = Vec(0, 0);
     mouse = touch->getLocation();
     if (current) {
         if (touch && isTouchingSprite(touch, current)) {
@@ -362,10 +373,20 @@ bool CombatLayer::onTouchBegan(Touch* touch, Event* event) {
 }
 
 void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
+    prevMouse = mouse;
     mouse = touch->getLocation();
+    
+    if (mouse.distance(prevMouse) > 5 and idle >= 30) {
+        idle = 0;
+    }
+    
     if (current and dragging) {
         auto gotoTile = CombatLayer::getTileAt(touchToPoint(touch));
+        
         if (destTile != gotoTile) {
+            
+            deltaMouse = gotoTile->getCoordinate() - destTile->getCoordinate();
+            
             if (std::find(viableMoves.begin(), viableMoves.end(), gotoTile) != viableMoves.end()) {
                 
                 vector<GridTile*> adjmoves;
@@ -390,6 +411,7 @@ void CombatLayer::onTouchMoved(Touch* touch, Event* event) {
 }
 
 void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
+    prevMouse = Vec(0, 0);
     mouse = touch->getLocation();
     if (current and dragging) {
         current->jumpToDest(destTile);
@@ -397,6 +419,8 @@ void CombatLayer::onTouchEnded(Touch* touch, Event* event) {
         current = NULL;
         destTile = NULL;
         dragging = false;
+        setangle = false;
+        idle = 0;
         path.clear();
         viableMoves.clear();
         telegraphed.clear();

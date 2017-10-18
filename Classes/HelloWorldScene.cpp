@@ -1,5 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include <iostream>
+using namespace std;
 
 USING_NS_CC;
 
@@ -48,12 +50,29 @@ bool HelloWorld::init()
     
     this->schedule(schedule_selector(HelloWorld::step));
     
+    /*auto ss = Director::getInstance()->getVisibleSize();
+    ScreenInhertedFromColorLayer *scl = new ScreenInhertedFromColorLayer();
+    if (scl && scl->initWithColor(Color4B(0,0,0,128), ss.width, ss.height))
+        //other initialisation for create() method. Create your best popup layout here
+    */
+    guy = new Character(
+                             Attributes(5, 5, 5, 5, 5, 5),
+                             Attributes(35, 35, 35, 35, 35, 35),
+                             Attributes(0, 0, 0, 0, 0, 0),
+                        1, CharRarity::SILVER
+    );
+    
     return true;
 }
 
 
 void HelloWorld::step(float dt) {
-    
+    if (guy) {
+        auto amount = guy->level * (2+cocos2d::random(1, 5));
+        guy->giveExp(amount);
+        total += 1;
+        cout << "tot " << total << endl;
+    }
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

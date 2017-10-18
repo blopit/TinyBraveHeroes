@@ -65,6 +65,10 @@ public:
     virtual void update(float dt) override;
     
     cocos2d::Vec2 mouse = Vec(0, 0);
+    cocos2d::Vec2 prevMouse = Vec(0, 0);
+    cocos2d::Vec2 deltaMouse = Vec(0, 0);
+    bool setangle = false;
+    int idle = 0;
     
     Point touchToPoint(Touch* touch);
     bool isTouchingSprite(Touch* touch, Pawn *pawn);

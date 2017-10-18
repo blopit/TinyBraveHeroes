@@ -53,21 +53,17 @@ vector<GridTile *> Ability::addAllTargets(vector<Pawn *> pawns, vector<GridTile 
     return targets;
 }
 
-Direction Ability::getDirection(GridTile *src, GridTile *dest) {
-    auto x1 = src->location.x;
-    auto y1 = src->location.y;
-    auto x2 = dest->location.x;
-    auto y2 = dest->location.y;
+Direction Ability::getDirection(Vec2 delta) {
     
-    float dy = y2-y1;
-    float dx = x2-x1;
+    float dy = delta.y;
+    float dx = delta.x;
     float slope = 1.0;
     if (dx != 0) {
         slope = abs(dy/dx);
     }
     
-    if (y2 > y1) {
-        if (x2 > x1) {
+    if (dy > 0) {
+        if (dx > 0) {
             if (slope > 1) {
                 return Direction::N;
             } else if (slope < 1) {
@@ -75,7 +71,7 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
             } else {
                 return Direction::NE;
             }
-        } else if (x1 > x2) {
+        } else if (dx < 0) {
             if (slope > 1) {
                 return Direction::N;
             } else if (slope < 1) {
@@ -86,8 +82,8 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
         } else {
             return Direction::N;
         }
-    } else if (y1 > y2) {
-        if (x2 > x1) {
+    } else if (dy < 0) {
+        if (dx > 0) {
             if (slope > 1) {
                 return Direction::S;
             } else if (slope < 1) {
@@ -95,7 +91,7 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
             } else {
                 return Direction::SE;
             }
-        } else if (x1 > x2) {
+        } else if (dx < 0) {
             if (slope > 1) {
                 return Direction::S;
             } else if (slope < 1) {
@@ -107,9 +103,9 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
             return Direction::S;
         }
     } else {
-        if (x2 > x1) {
+        if (dx > 0) {
             return Direction::E;
-        } else if (x1 > x2) {
+        } else if (dx < 0) {
             return Direction::W;
         } else {
             return Direction::NONE;
@@ -117,8 +113,8 @@ Direction Ability::getDirection(GridTile *src, GridTile *dest) {
     }
 }
 
-Direction Ability::getDirectionSimp1(GridTile *src, GridTile *dest) {
-    Direction d = getDirection(src, dest);
+Direction Ability::getDirectionSimp1(Vec2 delta) {
+    Direction d = getDirection(delta);
     
     switch (d) {
         case Direction::N:
@@ -153,11 +149,11 @@ Direction Ability::getDirectionSimp1(GridTile *src, GridTile *dest) {
     }
 }
 
-pair<vector<GridTile *>, vector<GridTile *>> Ability::telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *src, GridTile *dest) {
+pair<vector<GridTile *>, vector<GridTile *>> Ability::telegraphedTargets(GridGraph *graph, vector<Pawn *> pawns, GridTile *dest, Vec2 delta) {
 
     
     tele = teleo = line_50();
-    auto r = getDirectionSimp1(src, dest);
+    auto r = getDirectionSimp1(delta);
     
     switch (r) {
         case Direction::N:

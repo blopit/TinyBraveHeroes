@@ -14,6 +14,7 @@
 #include "CombatLogic.hpp"
 #include "Ability.hpp"
 #include "Healthbar.hpp"
+#include "Passive.hpp"
 
 class Passive;
 
