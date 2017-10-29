@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include <iostream>
+
 using namespace std;
 
 USING_NS_CC;
@@ -32,6 +33,10 @@ bool HelloWorld::init()
     
     auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
     
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/misc.plist");
+    
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/icons.plist");
+    
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - label->getContentSize().height));
@@ -56,23 +61,36 @@ bool HelloWorld::init()
         //other initialisation for create() method. Create your best popup layout here
     */
     guy = new Character(
-                             Attributes(5, 5, 5, 5, 5, 5),
-                             Attributes(35, 35, 35, 35, 35, 35),
+                             Attributes(3, 7, 6, 3, 4, 6),
+                             Attributes(28, 47, 40, 24, 31, 40),
                              Attributes(0, 0, 0, 0, 0, 0),
                         1, CharRarity::SILVER
     );
+    
+    p = getItemPassive(PassiveItemIndex::ELEPHANT, ItemRarity::COMMON, 30);
+    cout << p->name << endl;
+    cout << p->getDescription() << endl;
+    
+    auto spr = p->generateSprite();
+    spr->setPosition(Vec2(512, 512));
+    addChild(spr);
     
     return true;
 }
 
 
 void HelloWorld::step(float dt) {
-    if (guy) {
+    
+    p->generateSpin(total);
+    
+    total += 5;
+    
+    /*if (guy) {
         auto amount = guy->level * (2+cocos2d::random(1, 5));
         guy->giveExp(amount);
         total += 1;
         cout << "tot " << total << endl;
-    }
+    }*/
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

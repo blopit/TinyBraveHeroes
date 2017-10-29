@@ -12,11 +12,11 @@
 
 #define CB_BLACK cocos2d::Color4F(0.0, 0.0, 0.0, 1.0)
 #define CB_SKBLUE cocos2d::Color4F(0.35, 0.7, 0.9, 1.0)
-#define CB_BLUE cocos2d::Color4F(0, 0.45, 0.7, 1.0)
+#define CB_BLUE cocos2d::Color4F(0, 0.45, 0.7, 1.0)         // #0070B0
 #define CB_GREEN cocos2d::Color4F(0.0, 0.6, 0.5, 1.0)
 #define CB_LTGREEN cocos2d::Color4F(0.4, 1.0, 0.6, 1.0)
-#define CB_YELLOW cocos2d::Color4F(0.95, 0.9, 0.25, 1.0)
-#define CB_ORANGE cocos2d::Color4F(0.9, 0.6, 0.0, 1.0)
+#define CB_YELLOW cocos2d::Color4F(0.95, 0.9, 0.25, 1.0)    // #F3E63F
+#define CB_ORANGE cocos2d::Color4F(0.9, 0.6, 0.0, 1.0)      // #E69900
 #define CB_RED cocos2d::Color4F(0.8, 0.4, 0.0, 1.0)
 #define CB_DKRED cocos2d::Color4F(0.85, 0.0, 0.0, 1.0)
 #define CB_PINK cocos2d::Color4F(0.8, 0.6, 0.7, 1.0)
@@ -39,6 +39,8 @@
 
 #define GOLDEN_RATIO 1.61803398875f
 
+#define MAXLEVEL 30
+
 struct ItemRarityStruct {
     int value;
     cocos2d::Color4F color;
@@ -57,6 +59,7 @@ enum class ItemRarity {
     MYTHIC
 };
 
+//TODO: fix this
 static std::map<ItemRarity, ItemRarityStruct> ItemRarityMap = {
     {ItemRarity::COMMON, ItemRarityStruct("Common", 1, CB_WHITE, 0.65f)},
     {ItemRarity::UNCOMMON, ItemRarityStruct("Uncommon", 1, CB_GREEN, 0.90f)},
@@ -71,5 +74,7 @@ template <class T>
 T boundToRange(T lower, T value, T upper) {
     return value < lower ? lower : value > upper ? upper : value;
 }
+
+std::string formatString(const char* format, ...);
 
 #endif /* Utils_hpp */

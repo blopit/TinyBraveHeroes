@@ -25,7 +25,7 @@ typedef enum {
 }Priority;
 
 enum Type {
-    BUFF, DEBUFF, NEUTRAL
+    BUFF, DEBUFF, NEUTRAL, AILMENT
 };
 
 class Passive;
@@ -83,8 +83,8 @@ public:
     Protection30(Pawn *src, Pawn *target, int duration, double amount) : Passive("Protection", src, target, duration, amount, std::vector<Trigger> {BEFORE_DAMAGE_MIT}, Priority::NORMAL, Type::BUFF) {}
 };
 
-
-enum class PassiveBadgeIndex {
+//TODO: remove
+/*enum class PassiveBadgeIndex {
     NONE,
     BLEED,
     PROTECT
@@ -102,6 +102,6 @@ Passive *passiveFromIndex(PassiveBadgeIndex ai, Pawn *owner) {
             return NULL;
             break;
     }
-}
+}*/
 
 #endif /* Passive_hpp */

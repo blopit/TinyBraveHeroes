@@ -34,7 +34,6 @@ bool CombatLayer::init()
 {
     
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/blood.plist");
-    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/misc.plist");
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("res/cut.plist");
     
     auto bk = Sprite::create("res/IMG_1341.jpg");

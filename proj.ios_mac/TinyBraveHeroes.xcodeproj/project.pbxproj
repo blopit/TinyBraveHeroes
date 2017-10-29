@@ -31,6 +31,20 @@
 		3981D9041F9684D0005A5FA4 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9011F9684D0005A5FA4 /* Character.cpp */; };
 		3981D90B1F96A5E2005A5FA4 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9091F96A5E2005A5FA4 /* Item.cpp */; };
 		3981D90C1F96A5E2005A5FA4 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9091F96A5E2005A5FA4 /* Item.cpp */; };
+		3981D9121F981003005A5FA4 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9111F981002005A5FA4 /* Utils.cpp */; };
+		3981D9131F981003005A5FA4 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9111F981002005A5FA4 /* Utils.cpp */; };
+		3981D9171F9BDB58005A5FA4 /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9141F9BDB57005A5FA4 /* GameCenter.mm */; };
+		3981D9181F9BDB59005A5FA4 /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9141F9BDB57005A5FA4 /* GameCenter.mm */; };
+		3981D9191F9BDB59005A5FA4 /* GameCenterIos.m in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9161F9BDB58005A5FA4 /* GameCenterIos.m */; };
+		3981D91A1F9BDB59005A5FA4 /* GameCenterIos.m in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9161F9BDB58005A5FA4 /* GameCenterIos.m */; };
+		3981D91F1F9CF018005A5FA4 /* QuizData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D91D1F9CF017005A5FA4 /* QuizData.cpp */; };
+		3981D9201F9CF018005A5FA4 /* QuizData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D91D1F9CF017005A5FA4 /* QuizData.cpp */; };
+		3981D9231F9CF0DC005A5FA4 /* QuizScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9211F9CF0DC005A5FA4 /* QuizScene.cpp */; };
+		3981D9241F9CF0DC005A5FA4 /* QuizScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9211F9CF0DC005A5FA4 /* QuizScene.cpp */; };
+		3981D9271F9CF101005A5FA4 /* TemplateScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9251F9CF101005A5FA4 /* TemplateScene.cpp */; };
+		3981D9281F9CF101005A5FA4 /* TemplateScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D9251F9CF101005A5FA4 /* TemplateScene.cpp */; };
+		3981D92C1FA4F947005A5FA4 /* Town.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D92A1FA4F946005A5FA4 /* Town.cpp */; };
+		3981D92D1FA4F948005A5FA4 /* Town.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3981D92A1FA4F946005A5FA4 /* Town.cpp */; };
 		399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
 		399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 399974061F6204E200AAEDA0 /* CombatLogic.cpp */; };
 		3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3999740A1F63390800AAEDA0 /* Telegraph.cpp */; };
@@ -165,6 +179,18 @@
 		3981D9091F96A5E2005A5FA4 /* Item.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
 		3981D90A1F96A5E2005A5FA4 /* Item.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Item.hpp; sourceTree = "<group>"; };
 		3981D90E1F96C4AE005A5FA4 /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		3981D9111F981002005A5FA4 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		3981D9141F9BDB57005A5FA4 /* GameCenter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenter.mm; sourceTree = "<group>"; };
+		3981D9151F9BDB58005A5FA4 /* GameCenterIos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameCenterIos.h; sourceTree = "<group>"; };
+		3981D9161F9BDB58005A5FA4 /* GameCenterIos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameCenterIos.m; sourceTree = "<group>"; };
+		3981D91D1F9CF017005A5FA4 /* QuizData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QuizData.cpp; sourceTree = "<group>"; };
+		3981D91E1F9CF017005A5FA4 /* QuizData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QuizData.hpp; sourceTree = "<group>"; };
+		3981D9211F9CF0DC005A5FA4 /* QuizScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QuizScene.cpp; sourceTree = "<group>"; };
+		3981D9221F9CF0DC005A5FA4 /* QuizScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QuizScene.hpp; sourceTree = "<group>"; };
+		3981D9251F9CF101005A5FA4 /* TemplateScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateScene.cpp; sourceTree = "<group>"; };
+		3981D9261F9CF101005A5FA4 /* TemplateScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TemplateScene.hpp; sourceTree = "<group>"; };
+		3981D92A1FA4F946005A5FA4 /* Town.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Town.cpp; sourceTree = "<group>"; };
+		3981D92B1FA4F946005A5FA4 /* Town.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Town.hpp; sourceTree = "<group>"; };
 		399974061F6204E200AAEDA0 /* CombatLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CombatLogic.cpp; sourceTree = "<group>"; };
 		399974071F6204E200AAEDA0 /* CombatLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CombatLogic.hpp; sourceTree = "<group>"; };
 		3999740A1F63390800AAEDA0 /* Telegraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Telegraph.cpp; sourceTree = "<group>"; };
@@ -373,6 +399,45 @@
 			path = Combat;
 			sourceTree = "<group>";
 		};
+		3981D91B1F9BDB5C005A5FA4 /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				3981D9141F9BDB57005A5FA4 /* GameCenter.mm */,
+				3981D9151F9BDB58005A5FA4 /* GameCenterIos.h */,
+				3981D9161F9BDB58005A5FA4 /* GameCenterIos.m */,
+			);
+			path = GameCenter;
+			sourceTree = "<group>";
+		};
+		3981D91C1F9CEFC1005A5FA4 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				3981D91D1F9CF017005A5FA4 /* QuizData.cpp */,
+				3981D91E1F9CF017005A5FA4 /* QuizData.hpp */,
+				3981D9211F9CF0DC005A5FA4 /* QuizScene.cpp */,
+				3981D9221F9CF0DC005A5FA4 /* QuizScene.hpp */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		3981D9291F9CF105005A5FA4 /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				3981D9251F9CF101005A5FA4 /* TemplateScene.cpp */,
+				3981D9261F9CF101005A5FA4 /* TemplateScene.hpp */,
+			);
+			path = Template;
+			sourceTree = "<group>";
+		};
+		3981D92E1FA4F94E005A5FA4 /* Overworld */ = {
+			isa = PBXGroup;
+			children = (
+				3981D92A1FA4F946005A5FA4 /* Town.cpp */,
+				3981D92B1FA4F946005A5FA4 /* Town.hpp */,
+			);
+			path = Overworld;
+			sourceTree = "<group>";
+		};
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +454,10 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3981D92E1FA4F94E005A5FA4 /* Overworld */,
+				3981D9291F9CF105005A5FA4 /* Template */,
+				3981D91C1F9CEFC1005A5FA4 /* Quiz */,
+				3981D91B1F9BDB5C005A5FA4 /* GameCenter */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
@@ -407,6 +476,7 @@
 				3981D9091F96A5E2005A5FA4 /* Item.cpp */,
 				3981D90A1F96A5E2005A5FA4 /* Item.hpp */,
 				3981D90E1F96C4AE005A5FA4 /* Utils.hpp */,
+				3981D9111F981002005A5FA4 /* Utils.cpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -615,22 +685,29 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				399C8C721F8436ED00C69A23 /* Tooltip.cpp in Sources */,
 				3919AE1D1F6087CC008E7041 /* GridGraph.cpp in Sources */,
+				3981D9121F981003005A5FA4 /* Utils.cpp in Sources */,
 				3981D9031F9684D0005A5FA4 /* Character.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				3981D9271F9CF101005A5FA4 /* TemplateScene.cpp in Sources */,
 				3919AE211F60D741008E7041 /* GameManager.cpp in Sources */,
 				399974141F6379FC00AAEDA0 /* Healthbar.cpp in Sources */,
 				392617DC1F69BBDD001B6B27 /* AnimationBlock.cpp in Sources */,
 				392617E11F69DD1E001B6B27 /* Passive.cpp in Sources */,
 				399974081F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
 				3981D90B1F96A5E2005A5FA4 /* Item.cpp in Sources */,
+				3981D9231F9CF0DC005A5FA4 /* QuizScene.cpp in Sources */,
+				3981D9181F9BDB59005A5FA4 /* GameCenter.mm in Sources */,
 				3999740C1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
 				3919AE0E1F5E6944008E7041 /* Pawn.cpp in Sources */,
 				399974101F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				3919AE291F611335008E7041 /* Dijkstra.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				3981D91A1F9BDB59005A5FA4 /* GameCenterIos.m in Sources */,
+				3981D91F1F9CF018005A5FA4 /* QuizData.cpp in Sources */,
 				3919AE151F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
+				3981D92C1FA4F947005A5FA4 /* Town.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,16 +720,23 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				3919AE1E1F6087CC008E7041 /* GridGraph.cpp in Sources */,
 				3919AE161F5F07F9008E7041 /* CombatLayer.cpp in Sources */,
+				3981D9171F9BDB58005A5FA4 /* GameCenter.mm in Sources */,
+				3981D9201F9CF018005A5FA4 /* QuizData.cpp in Sources */,
 				392617E21F69DD1E001B6B27 /* Passive.cpp in Sources */,
 				3981D90C1F96A5E2005A5FA4 /* Item.cpp in Sources */,
+				3981D92D1FA4F948005A5FA4 /* Town.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				3919AE2A1F611335008E7041 /* Dijkstra.cpp in Sources */,
 				3999740D1F63390800AAEDA0 /* Telegraph.cpp in Sources */,
 				399974111F633FB700AAEDA0 /* Ability.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				3981D9041F9684D0005A5FA4 /* Character.cpp in Sources */,
+				3981D9241F9CF0DC005A5FA4 /* QuizScene.cpp in Sources */,
+				3981D9131F981003005A5FA4 /* Utils.cpp in Sources */,
 				399974091F6204E200AAEDA0 /* CombatLogic.cpp in Sources */,
+				3981D9191F9BDB59005A5FA4 /* GameCenterIos.m in Sources */,
 				399C8C731F8436ED00C69A23 /* Tooltip.cpp in Sources */,
+				3981D9281F9CF101005A5FA4 /* TemplateScene.cpp in Sources */,
 				392617DD1F69BBDE001B6B27 /* AnimationBlock.cpp in Sources */,
 				3919AE0F1F5E6944008E7041 /* Pawn.cpp in Sources */,
 			);

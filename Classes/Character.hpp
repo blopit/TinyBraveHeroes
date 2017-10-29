@@ -9,9 +9,7 @@
 #define Character_hpp
 
 #include "Ability.hpp"
-#include "Passive.hpp"
-
-#define MAXLEVEL 30
+#include "Item.hpp"
 
 enum class CharRarity {
     NORMAL = 1,
@@ -53,9 +51,9 @@ class Character {
     Attributes finalAttr;
     Attributes individualAttr;
     Attributes setLevel(int level);
-    vector<AbilityIndex> abilities;     // 3 of these
-    WeaponIndex weapon;                 // 1 of these
-    vector<PassiveBadgeIndex> passives; // 4 of these
+    vector<ItemAbility *> abilities;     // 3 of these
+    vector<ItemWeapon *> weapons;                 // 1 of these
+    vector<ItemPassive *> passives; // 4 of these
     
 public:
     Attributes attr;

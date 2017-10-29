@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Character.hpp"
+#include "Item.hpp"
 
 enum class MenuState {
     HOME,
@@ -29,6 +30,7 @@ public:
     void step(float dt);
     
     Character *guy = NULL;
+    Item *p = NULL;
     int total = 0;
     
 private:
