@@ -80,7 +80,7 @@
 #endif
 
 - (BOOL) shouldAutorotate {
-    return YES;
+    return NO;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -103,6 +103,11 @@
 //fix not hide status on ios7
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (UIRectEdge) preferredScreenEdgesDeferringSystemGestures
+{
+    return UIRectEdgeAll;
 }
 
 - (void)didReceiveMemoryWarning {

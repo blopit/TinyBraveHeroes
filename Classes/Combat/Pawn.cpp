@@ -30,8 +30,7 @@ bool Pawn::init() {
     brightnessBlend.dst = GL_ZERO;
     drawNode->setBlendFunc(brightnessBlend);
     
-    waitLabel = Label::createWithTTF("wait", "fonts/dpcomic.ttf", 24);
-    waitLabel->setAnchorPoint(Vec2(0, 1));
+    waitLabel = Label::createWithTTF("wait", "fonts/dpcomic.ttf", 24);    waitLabel->setAnchorPoint(Vec2(0, 1));
     waitLabel->setTextColor(Color4B(Color4F(0.3, 1, 0, 1)));
     waitLabel->enableOutline(Color4B::BLACK, 3);
     addChild(waitLabel, 2);

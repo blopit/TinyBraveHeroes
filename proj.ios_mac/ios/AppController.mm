@@ -70,7 +70,8 @@ static AppDelegate s_sharedApplication;
 
     [window makeKeyAndVisible];
 
-    [[UIApplication sharedApplication] setStatusBarHidden:true];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
     
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
@@ -82,6 +83,15 @@ static AppDelegate s_sharedApplication;
     return YES;
 }
 
+- (UIRectEdge) preferredScreenEdgesDeferringSystemGestures
+{
+    return UIRectEdgeAll;
+}
+
+- (BOOL) prefersStatusBarHidden
+{
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*

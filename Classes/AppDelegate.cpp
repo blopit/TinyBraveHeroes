@@ -94,7 +94,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = TownScene::create();
+    auto scene = TownScene::createScene();
     //QuizScene::createScene(45);
     //HelloWorld::createScene();//*/CombatLayer::createScene();
 

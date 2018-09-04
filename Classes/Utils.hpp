@@ -76,5 +76,7 @@ T boundToRange(T lower, T value, T upper) {
 }
 
 std::string formatString(const char* format, ...);
+cocos2d::Point touchToPoint(cocos2d::Touch * touch);
+bool isTouching(cocos2d::Touch* touch, cocos2d::Rect rect);
 
 #endif /* Utils_hpp */

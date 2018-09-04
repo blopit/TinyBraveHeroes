@@ -7,6 +7,8 @@
 
 #include "Utils.hpp"
 
+USING_NS_CC;
+
 std::string formatString(const char* format, ...) {
     va_list args;
     va_start(args, format);
@@ -22,4 +24,12 @@ std::string formatString(const char* format, ...) {
     return result;
 #endif
     va_end(args);
+}
+
+Point touchToPoint(Touch * touch) {
+    return Director::getInstance()->convertToGL(touch->getLocationInView());
+}
+
+bool isTouching(cocos2d::Touch* touch, Rect rect) {
+    return (rect.containsPoint(touchToPoint(touch)));
 }
