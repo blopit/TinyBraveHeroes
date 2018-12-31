@@ -81,7 +81,7 @@ std::string runePrefixFromItemRarity(ItemRarity rarity) {
         default:
             break;
     }
-    return "";
+    return "??? ";
 };
 
 ItemPassive *getItemPassive(PassiveItemIndex pii, ItemRarity rarity, float level) {

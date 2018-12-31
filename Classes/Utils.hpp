@@ -11,7 +11,7 @@
 #include <cocos2d.h>
 
 #define CB_BLACK cocos2d::Color4F(0.0, 0.0, 0.0, 1.0)
-#define CB_SKBLUE cocos2d::Color4F(0.35, 0.7, 0.9, 1.0)
+#define CB_SKBLUE cocos2d::Color4F(0.35, 0.7, 0.9, 1.0)     // #59B3E6
 #define CB_BLUE cocos2d::Color4F(0, 0.45, 0.7, 1.0)         // #0070B0
 #define CB_GREEN cocos2d::Color4F(0.0, 0.6, 0.5, 1.0)
 #define CB_LTGREEN cocos2d::Color4F(0.4, 1.0, 0.6, 1.0)
@@ -37,7 +37,7 @@
 #define CB_WHITE_A(A) cocos2d::Color4F(1.0, 1.0, 1.0, A)
 #define CB_PURPLE_A(A) cocos2d::Color4F(0.6, 0.0, 1.0, A)
 
-#define GOLDEN_RATIO 1.61803398875f
+#define PHI 1.61803398875f
 
 #define MAXLEVEL 30
 
@@ -46,7 +46,9 @@ struct ItemRarityStruct {
     cocos2d::Color4F color;
     std::string name;
     float powerMult;
-    ItemRarityStruct(std::string name, int value, cocos2d::Color4F color, float powerMult): name(name), value(value), color(color), powerMult(powerMult) {};
+    int minLevel;
+    int maxLevel;
+    ItemRarityStruct(std::string name, int value, cocos2d::Color4F color, float powerMult, int minLevel, int maxLevel): name(name), value(value), color(color), powerMult(powerMult), minLevel(minLevel), maxLevel(maxLevel) {};
 };
 
 enum class ItemRarity {
@@ -61,13 +63,13 @@ enum class ItemRarity {
 
 //TODO: fix this
 static std::map<ItemRarity, ItemRarityStruct> ItemRarityMap = {
-    {ItemRarity::COMMON, ItemRarityStruct("Common", 1, CB_WHITE, 0.65f)},
-    {ItemRarity::UNCOMMON, ItemRarityStruct("Uncommon", 1, CB_GREEN, 0.90f)},
-    {ItemRarity::RARE, ItemRarityStruct("Rare", 1, CB_BLUE, 0.95f)},
-    {ItemRarity::EPIC, ItemRarityStruct("Epic", 1, CB_PURPLE, 1.00f)},
-    {ItemRarity::ELITE, ItemRarityStruct("Elite", 1, CB_YELLOW, 1.05f)},
-    {ItemRarity::LEGENDARY, ItemRarityStruct("Legendary", 1, CB_ORANGE, 1.15f)},
-    {ItemRarity::MYTHIC, ItemRarityStruct("Mythic", 1, CB_PINK, 1.20f)},
+    {ItemRarity::COMMON, ItemRarityStruct("Common", 1, CB_WHITE, 0.65f, 5, 15)},
+    {ItemRarity::UNCOMMON, ItemRarityStruct("Uncommon", 1, CB_GREEN, 0.90f, 10, 20)},
+    {ItemRarity::RARE, ItemRarityStruct("Rare", 1, CB_BLUE, 0.95f, 15, 25)},
+    {ItemRarity::EPIC, ItemRarityStruct("Epic", 1, CB_PURPLE, 1.00f, 20, 30)},
+    {ItemRarity::ELITE, ItemRarityStruct("Elite", 1, CB_YELLOW, 1.05f, 25, 30)},
+    {ItemRarity::LEGENDARY, ItemRarityStruct("Legendary", 1, CB_ORANGE, 1.15f, 30, 30)},
+    {ItemRarity::MYTHIC, ItemRarityStruct("Mythic", 1, CB_PINK, 1.20f, 30, 30)},
 };
 
 template <class T>

@@ -44,7 +44,12 @@ public:
 enum class PassiveItemType {
     OFFENSE,
     DEFENSE,
-    UTILITY
+    UTILITY,
+    OFF_DEF,
+    OFF_UTIL,
+    DEF_UTIL,
+    ALL,
+    SPECIAL
 };
 
 string runePrefixFromItemRarity(ItemRarity rarity);
@@ -60,16 +65,16 @@ public:
 };
 
 enum class PassiveItemIndex {
-    ELEPHANT,
-    CROCODILE,
-    DOLPHIN,
-    CLAM,
-    CHAMELEON,
-    SNAKE,
-    BEAR,
-    PIG,
-    GORILLA,
-    POLAR_BEAR,
+    ELEPHANT,   //HP
+    CROCODILE,  //ATT
+    DOLPHIN,    //INT
+    CLAM,       //DEF
+    CHAMELEON,  //RES
+    SNAKE,      //SPD
+    BEAR,       //HP + ATT
+    PIG,        //HP + INT
+    GORILLA,    //
+    POLAR_BEAR, //
     BOAR,
     HORSE,
     SPIDER,
@@ -201,13 +206,19 @@ enum class PassiveItemIndex {
     GREAT_SNAKE,
 };
 
+class InvItem {
+    PassiveItemIndex pii;
+    ItemRarity rarity;
+    float level;
+};
+
 /*
  Elephant Rune
  */
 class ElephantRune: public ItemPassive {
 public:
     ElephantRune(ItemRarity rarity, float level): ItemPassive("the Elephant", "Grants %d HP", PassiveItemType::DEFENSE, rarity, level, "passives/elephant.png") {
-        w1 = round(20.0f * powerMult);
+        w1 = floor(20.0f * powerMult);
     }
 };
 
@@ -217,7 +228,7 @@ public:
 class CrocodileRune: public ItemPassive {
 public:
     CrocodileRune(ItemRarity rarity, float level): ItemPassive("the Crocodile", "Grants %d ATT", PassiveItemType::OFFENSE, rarity, level, "passives/elephant.png") {
-        w1 = round(20.0f * powerMult);
+        w1 = floor(20.0f * powerMult);
     }
 };
 
